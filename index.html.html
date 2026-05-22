@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Aureate Design Studios</title>
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:wght@300;400;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --magenta: #e040fb;
+    --cyan: #40c4ff;
+    --violet: #7c4dff;
+    --gold: #ffc44d;
+  }
+
+  body {
+    background: #06040f;
+    color: #e8e0f0;
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ─── ANIMATED BACKGROUND ─── */
+  .bg {
+    position: fixed; inset: 0; z-index: 0; pointer-events: none;
+    background:
+      radial-gradient(ellipse 70% 50% at 15% 15%, rgba(224,64,251,0.13) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 45% at 85% 80%, rgba(64,196,255,0.09) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 60% at 50% 50%, rgba(124,77,255,0.06) 0%, transparent 70%),
+      #06040f;
+  }
+
+  /* floating orbs */
+  .orb {
+    position: fixed; border-radius: 50%; pointer-events: none; z-index: 0;
+    filter: blur(80px); opacity: 0.25; animation: drift 18s ease-in-out infinite alternate;
+  }
+  .orb1 { width: 500px; height: 500px; background: radial-gradient(circle, #e040fb, transparent); top: -150px; left: -150px; animation-duration: 20s; }
+  .orb2 { width: 400px; height: 400px; background: radial-gradient(circle, #40c4ff, transparent); bottom: -100px; right: -100px; animation-duration: 25s; animation-delay: -8s; }
+  .orb3 { width: 300px; height: 300px; background: radial-gradient(circle, #7c4dff, transparent); top: 40%; left: 40%; animation-duration: 15s; animation-delay: -4s; }
+
+  @keyframes drift {
+    0%   { transform: translate(0, 0) scale(1); }
+    50%  { transform: translate(30px, -40px) scale(1.05); }
+    100% { transform: translate(-20px, 20px) scale(0.95); }
+  }
+
+  /* grain overlay */
+  .grain {
+    position: fixed; inset: 0; z-index: 1; pointer-events: none; opacity: 0.035;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 200px 200px;
+  }
+
+  /* ─── SHELL ─── */
+  .shell { position: relative; z-index: 2; display: flex; flex-direction: column; min-height: 100vh; }
+
+  /* ─── NAV ─── */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 40px;
+    background: rgba(6,4,15,0.75);
+    backdrop-filter: blur(24px);
+    border-bottom: 0.5px solid rgba(255,255,255,0.07);
+  }
+
+  /* ✦ LOGO — the star of the show ✦ */
+  .logo-wrap { display: flex; flex-direction: column; line-height: 1; }
+
+  .logo-main {
+    font-family: 'Great Vibes', cursive;
+    font-size: 38px;
+    background: linear-gradient(135deg, #fff 0%, #f8c8ff 25%, #e040fb 55%, #40c4ff 85%, #fff 100%);
+    background-size: 300% 300%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: shimmer-logo 5s ease-in-out infinite;
+    filter: drop-shadow(0 0 18px rgba(224,64,251,0.5)) drop-shadow(0 0 40px rgba(64,196,255,0.25));
+    letter-spacing: 0.01em;
+  }
+
+  @keyframes shimmer-logo {
+    0%   { background-position: 0% 50%; }
+    50%  { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  .logo-sub {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 9.5px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.3);
+    margin-top: 1px;
+    padding-left: 3px;
+  }
+
+  /* nav tabs */
+  .nav-tabs {
+    display: flex; gap: 2px;
+    background: rgba(255,255,255,0.03);
+    border: 0.5px solid rgba(255,255,255,0.07);
+    border-radius: 12px; padding: 4px;
+    flex-wrap: wrap;
+  }
+
+  .nav-tab {
+    background: none; border: none;
+    color: rgba(255,255,255,0.45);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12.5px; font-weight: 400;
+    padding: 7px 13px; border-radius: 8px;
+    cursor: pointer; transition: all 0.2s ease;
+    white-space: nowrap;
+  }
+  .nav-tab:hover { color: rgba(255,255,255,0.85); background: rgba(255,255,255,0.06); }
+  .nav-tab.active { background: rgba(255,255,255,0.09); color: #fff; font-weight: 500; }
+
+  /* ─── PAGES ─── */
+  .page { padding: 52px 40px; max-width: 940px; margin: 0 auto; width: 100%; animation: fadein 0.35s ease; display: none; }
+  .page.active { display: block; }
+  @keyframes fadein { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* ─── HOME / HERO ─── */
+  .hero { text-align: center; padding: 72px 0 90px; }
+
+  .hero-eyebrow {
+    display: inline-block;
+    font-size: 10.5px; letter-spacing: 0.22em; text-transform: uppercase;
+    color: rgba(224,64,251,0.65);
+    border: 0.5px solid rgba(224,64,251,0.2);
+    background: rgba(224,64,251,0.05);
+    border-radius: 999px; padding: 6px 18px;
+    margin-bottom: 32px;
+  }
+
+  /* big hero logo in hero section */
+  .hero-logo {
+    font-family: 'Great Vibes', cursive;
+    font-size: clamp(64px, 10vw, 110px);
+    line-height: 1;
+    margin-bottom: 6px;
+    background: linear-gradient(135deg, #fff 0%, #f5c0ff 20%, #e040fb 45%, #7c4dff 65%, #40c4ff 85%, #fff 100%);
+    background-size: 300% 300%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: shimmer-logo 5s ease-in-out infinite;
+    filter: drop-shadow(0 0 30px rgba(224,64,251,0.6)) drop-shadow(0 0 60px rgba(64,196,255,0.3));
+  }
+
+  .hero-studio-label {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 15px; letter-spacing: 0.35em; text-transform: uppercase;
+    color: rgba(255,255,255,0.3); margin-bottom: 36px;
+  }
+
+  .hero p {
+    font-size: 17px; color: rgba(255,255,255,0.4); line-height: 1.75;
+    max-width: 500px; margin: 0 auto 48px; font-weight: 300;
+  }
+
+  .cta-row { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-bottom: 90px; }
+
+  .btn-primary {
+    background: linear-gradient(135deg, #e040fb, #7c4dff);
+    color: #fff; border: none; border-radius: 10px;
+    padding: 13px 30px; font-size: 13.5px; font-weight: 500;
+    cursor: pointer; font-family: 'DM Sans', sans-serif;
+    transition: all 0.2s ease;
+    box-shadow: 0 0 30px rgba(224,64,251,0.25);
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 0 50px rgba(224,64,251,0.4); }
+
+  .btn-ghost {
+    background: rgba(255,255,255,0.05);
+    color: rgba(255,255,255,0.65);
+    border: 0.5px solid rgba(255,255,255,0.12);
+    border-radius: 10px; padding: 13px 30px;
+    font-size: 13.5px; font-weight: 400;
+    cursor: pointer; font-family: 'DM Sans', sans-serif;
+    transition: all 0.2s ease;
+  }
+  .btn-ghost:hover { background: rgba(255,255,255,0.09); color: #fff; }
+
+  /* feature grid */
+  .feature-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+
+  .feature-card {
+    background: rgba(255,255,255,0.03);
+    border: 0.5px solid rgba(255,255,255,0.08);
+    border-radius: 18px; padding: 26px;
+    cursor: pointer; transition: all 0.25s ease;
+    position: relative; overflow: hidden;
+  }
+  .feature-card::before {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(224,64,251,0.05), transparent);
+    opacity: 0; transition: opacity 0.25s ease;
+  }
+  .feature-card:hover { border-color: rgba(224,64,251,0.2); transform: translateY(-3px); }
+  .feature-card:hover::before { opacity: 1; }
+
+  .feature-icon { font-size: 22px; margin-bottom: 14px; }
+  .feature-card h3 { font-size: 14px; font-weight: 500; color: #fff; margin-bottom: 7px; }
+  .feature-card p { font-size: 13px; color: rgba(255,255,255,0.38); line-height: 1.55; font-weight: 300; }
+
+  /* ─── SECTION HEADER ─── */
+  .section-header { margin-bottom: 36px; }
+  .section-tag {
+    display: block; font-size: 10px; letter-spacing: 0.2em;
+    text-transform: uppercase; color: rgba(255,255,255,0.3); margin-bottom: 10px;
+  }
+  .section-header h2 {
+    font-family: 'Great Vibes', cursive;
+    font-size: 52px; color: #fff; margin-bottom: 10px;
+    background: linear-gradient(135deg, #fff, #e040fb, #40c4ff);
+    background-size: 200%;
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    animation: shimmer-logo 5s ease-in-out infinite;
+    filter: drop-shadow(0 0 12px rgba(224,64,251,0.4));
+  }
+  .section-header p { font-size: 14.5px; color: rgba(255,255,255,0.38); line-height: 1.65; font-weight: 300; }
+
+  /* ─── TEST PANELS ─── */
+  .test-panel {
+    background: rgba(255,255,255,0.03);
+    border: 0.5px solid rgba(255,255,255,0.08);
+    border-radius: 16px; padding: 26px; margin-bottom: 18px;
+  }
+  .test-panel h4 { font-size: 12px; font-weight: 500; color: rgba(255,255,255,0.5); margin-bottom: 16px; letter-spacing: 0.06em; text-transform: uppercase; }
+
+  .test-input {
+    width: 100%; background: rgba(255,255,255,0.05);
+    border: 0.5px solid rgba(255,255,255,0.1);
+    border-radius: 10px; padding: 11px 16px;
+    color: #fff; font-family: 'DM Sans', sans-serif; font-size: 14px;
+    outline: none; transition: border-color 0.2s;
+    -webkit-appearance: none; appearance: none;
+  }
+  .test-input:focus { border-color: rgba(224,64,251,0.4); }
+  .test-input::placeholder { color: rgba(255,255,255,0.18); }
+  select.test-input option { background: #110d20; }
+  textarea.test-input { resize: vertical; min-height: 82px; }
+
+  .input-row { display: flex; gap: 10px; margin-bottom: 14px; flex-wrap: wrap; }
+
+  .run-btn {
+    background: rgba(224,64,251,0.12); color: #e040fb;
+    border: 0.5px solid rgba(224,64,251,0.28);
+    border-radius: 10px; padding: 11px 20px;
+    font-size: 13px; font-weight: 500; cursor: pointer;
+    font-family: 'DM Sans', sans-serif; transition: all 0.2s ease;
+    white-space: nowrap;
+  }
+  .run-btn:hover { background: rgba(224,64,251,0.22); box-shadow: 0 0 20px rgba(224,64,251,0.2); }
+
+  .run-btn.cyan { background: rgba(64,196,255,0.1); color: #40c4ff; border-color: rgba(64,196,255,0.22); }
+  .run-btn.cyan:hover { background: rgba(64,196,255,0.2); }
+
+  .output-box {
+    background: rgba(0,0,0,0.25); border: 0.5px solid rgba(255,255,255,0.06);
+    border-radius: 10px; padding: 18px; min-height: 70px;
+    font-size: 13.5px; color: rgba(255,255,255,0.5);
+    line-height: 1.65; display: none;
+  }
+  .output-box.show { display: block; animation: fadein 0.3s ease; }
+
+  .style-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
+  .chip {
+    background: rgba(255,255,255,0.04); border: 0.5px solid rgba(255,255,255,0.09);
+    border-radius: 999px; padding: 6px 14px; font-size: 12.5px;
+    color: rgba(255,255,255,0.45); cursor: pointer; transition: all 0.15s ease;
+    font-family: 'DM Sans', sans-serif; user-select: none;
+  }
+  .chip.selected { background: rgba(224,64,251,0.13); border-color: rgba(224,64,251,0.32); color: #e040fb; }
+
+  /* image placeholders */
+  .image-placeholders { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; margin-bottom: 14px; }
+  .img-ph {
+    aspect-ratio: 1; border-radius: 12px;
+    background: rgba(255,255,255,0.03); border: 0.5px solid rgba(255,255,255,0.07);
+    display: flex; align-items: center; justify-content: center;
+    color: rgba(255,255,255,0.15); font-size: 12px; transition: all 0.3s ease;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .img-ph.loading { background: linear-gradient(90deg,rgba(224,64,251,0.07) 0%,rgba(64,196,255,0.07) 50%,rgba(224,64,251,0.07) 100%); background-size: 200%; animation: shimmer-bg 1.5s infinite; }
+  .img-ph.ready { background: rgba(224,64,251,0.07); border-color: rgba(224,64,251,0.18); color: rgba(224,64,251,0.55); }
+  @keyframes shimmer-bg { 0%{background-position:200%} 100%{background-position:-200%} }
+
+  .status-bar { display: flex; align-items: center; gap: 8px; font-size: 12px; color: rgba(255,255,255,0.3); }
+  .status-dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.12); }
+  .status-dot.green { background: #4caf82; }
+  .status-dot.active { background: var(--magenta); animation: pulse 1.2s ease-in-out infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.2} }
+
+  /* waveform */
+  .voice-waveform { display: flex; align-items: center; gap: 3px; height: 52px; justify-content: center; margin: 18px 0; }
+  .bar { width: 3px; border-radius: 2px; background: rgba(224,64,251,0.28); transition: height 0.1s ease; }
+  .bar.on { background: linear-gradient(to top, #7c4dff, #e040fb); }
+
+  /* char builder */
+  .char-builder { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 14px; }
+  .field-group { display: flex; flex-direction: column; gap: 6px; }
+  .field-group label { font-size: 10px; color: rgba(255,255,255,0.3); letter-spacing: 0.1em; text-transform: uppercase; }
+
+  /* scene props */
+  .scene-props { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 14px; }
+
+  /* community */
+  .comm-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 14px; }
+  .comm-card { background: rgba(255,255,255,0.03); border: 0.5px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 20px; }
+  .comm-card-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; }
+  .comm-title { font-size: 14px; font-weight: 500; color: #fff; margin-bottom: 3px; }
+  .comm-author { font-size: 12px; color: rgba(255,255,255,0.3); }
+  .comm-badge { font-size: 10px; padding: 3px 9px; border-radius: 6px; font-weight: 500; letter-spacing: 0.04em; }
+  .comm-foot { display: flex; gap: 16px; margin-top: 14px; }
+  .comm-stat { font-size: 12px; color: rgba(255,255,255,0.28); }
+
+  /* dashboard */
+  .stats-row { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; margin-bottom: 24px; }
+  .stat-card { background: rgba(255,255,255,0.03); border: 0.5px solid rgba(255,255,255,0.07); border-radius: 12px; padding: 18px; }
+  .stat-label { font-size: 10.5px; color: rgba(255,255,255,0.3); letter-spacing: 0.07em; text-transform: uppercase; margin-bottom: 8px; }
+  .stat-value { font-size: 30px; font-weight: 300; color: #fff; }
+  .stat-sub { font-size: 11px; color: rgba(64,196,255,0.45); margin-top: 3px; }
+
+  .proj-list { display: flex; flex-direction: column; gap: 10px; }
+  .proj-row { display: flex; align-items: center; gap: 14px; background: rgba(255,255,255,0.03); border: 0.5px solid rgba(255,255,255,0.07); border-radius: 10px; padding: 14px 18px; }
+  .proj-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .proj-name { font-size: 14px; color: rgba(255,255,255,0.8); flex: 1; }
+  .proj-meta { font-size: 12px; color: rgba(255,255,255,0.28); white-space: nowrap; }
+  .proj-bar { width: 80px; height: 3px; background: rgba(255,255,255,0.06); border-radius: 2px; overflow: hidden; }
+  .proj-fill { height: 100%; border-radius: 2px; }
+
+  /* vault */
+  .vault-list { display: flex; flex-direction: column; gap: 10px; margin-top: 20px; }
+  .vault-row { background: rgba(255,255,255,0.03); border: 0.5px solid rgba(255,255,255,0.08); border-radius: 10px; padding: 14px 18px; display: flex; align-items: flex-start; gap: 12px; }
+  .vault-tag { font-size: 10px; padding: 3px 9px; border-radius: 6px; white-space: nowrap; flex-shrink: 0; margin-top: 2px; font-weight: 500; letter-spacing: 0.04em; }
+  .vault-title { font-size: 13.5px; font-weight: 500; color: rgba(255,255,255,0.82); margin-bottom: 3px; }
+  .vault-text { font-size: 13px; color: rgba(255,255,255,0.42); line-height: 1.5; }
+
+  /* note */
+  .note { background: rgba(255,193,64,0.05); border: 0.5px solid rgba(255,193,64,0.18); border-radius: 10px; padding: 14px 18px; margin-top: 18px; font-size: 13px; color: rgba(255,193,64,0.55); line-height: 1.55; }
+  .note strong { color: rgba(255,193,64,0.85); }
+
+  /* responsive */
+  @media (max-width: 700px) {
+    nav { padding: 12px 18px; flex-direction: column; gap: 12px; }
+    .page { padding: 36px 18px; }
+    .feature-grid { grid-template-columns: 1fr 1fr; }
+    .hero-logo { font-size: 64px; }
+    .stats-row { grid-template-columns: repeat(2,1fr); }
+    .comm-grid { grid-template-columns: 1fr; }
+    .char-builder, .scene-props { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="bg"></div>
+<div class="orb orb1"></div>
+<div class="orb orb2"></div>
+<div class="orb orb3"></div>
+<div class="grain"></div>
+
+<div class="shell">
+
+  <!-- NAV -->
+  <nav>
+    <div class="logo-wrap">
+      <span class="logo-main">Aureate Design Studios</span>
+      <span class="logo-sub">AI Creative Platform</span>
+    </div>
+    <div class="nav-tabs" id="nav">
+      <button class="nav-tab active"     onclick="show('home',this)">Home</button>
+      <button class="nav-tab"            onclick="show('images',this)">Images</button>
+      <button class="nav-tab"            onclick="show('video',this)">Video</button>
+      <button class="nav-tab"            onclick="show('voice',this)">Voice</button>
+      <button class="nav-tab"            onclick="show('scene',this)">Scene Builder</button>
+      <button class="nav-tab"            onclick="show('character',this)">Characters</button>
+      <button class="nav-tab"            onclick="show('vault',this)">Prompt Vault</button>
+      <button class="nav-tab"            onclick="show('community',this)">Community</button>
+      <button class="nav-tab"            onclick="show('dashboard',this)">Dashboard</button>
+    </div>
+  </nav>
+
+  <!-- ═══════════════ HOME ═══════════════ -->
+  <div id="home" class="page active">
+    <div class="hero">
+      <div class="hero-eyebrow">AI Creative Studio &mdash; v0.1 beta</div>
+      <div class="hero-logo">Aureate Design Studios</div>
+      <div class="hero-studio-label">Where Ideas Become Cinema</div>
+      <p>Generate images, videos, CGI worlds, costumes, and immersive creator experiences powered by AI.</p>
+      <div class="cta-row">
+        <button class="btn-primary" onclick="show('images', document.querySelectorAll('.nav-tab')[1])">Start Creating</button>
+        <button class="btn-ghost"   onclick="show('dashboard', document.querySelectorAll('.nav-tab')[8])">View Dashboard</button>
+      </div>
+    </div>
+
+    <div class="feature-grid">
+      <div class="feature-card" onclick="show('vault', document.querySelectorAll('.nav-tab')[6])">
+        <div class="feature-icon">🗄️</div>
+        <h3>Prompt Vault</h3>
+        <p>Save, organize, and remix your best prompts across every project</p>
+      </div>
+      <div class="feature-card" onclick="show('character', document.querySelectorAll('.nav-tab')[5])">
+        <div class="feature-icon">🎭</div>
+        <h3>Character Studio</h3>
+        <p>Build consistent characters that persist across all your generated content</p>
+      </div>
+      <div class="feature-card" onclick="show('scene', document.querySelectorAll('.nav-tab')[4])">
+        <div class="feature-icon">🌌</div>
+        <h3>Scene Builder</h3>
+        <p>Design cinematic environments and CGI worlds with layered controls</p>
+      </div>
+      <div class="feature-card" onclick="show('voice', document.querySelectorAll('.nav-tab')[3])">
+        <div class="feature-icon">🎙️</div>
+        <h3>Voice Studio</h3>
+        <p>Generate AI voices with customizable emotion, pace, and accent</p>
+      </div>
+      <div class="feature-card" onclick="show('community', document.querySelectorAll('.nav-tab')[7])">
+        <div class="feature-icon">✨</div>
+        <h3>Community</h3>
+        <p>Discover, remix, and share creations from the Aureate community</p>
+      </div>
+      <div class="feature-card" onclick="show('dashboard', document.querySelectorAll('.nav-tab')[8])">
+        <div class="feature-icon">📊</div>
+        <h3>Creator Dashboard</h3>
+        <p>Track active projects, usage credits, and generation history</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════ IMAGES ═══════════════ -->
+  <div id="images" class="page">
+    <div class="section-header">
+      <span class="section-tag">Testing Panel</span>
+      <h2>Image Generator</h2>
+      <p>Test prompt variations and style combinations. Slots show placeholder states to map the UI flow.</p>
+    </div>
+
+    <div class="test-panel">
+      <h4>Prompt</h4>
+      <textarea class="test-input" id="img-prompt" placeholder="A cyberpunk city at dusk, neon reflections on wet pavement, cinematic 35mm..."></textarea>
+
+      <div class="style-chips" id="img-chips">
+        <span class="chip selected" onclick="toggleChip(this)">Cinematic</span>
+        <span class="chip" onclick="toggleChip(this)">Anime</span>
+        <span class="chip" onclick="toggleChip(this)">Oil painting</span>
+        <span class="chip" onclick="toggleChip(this)">Photorealistic</span>
+        <span class="chip" onclick="toggleChip(this)">Concept art</span>
+        <span class="chip" onclick="toggleChip(this)">Low-poly</span>
+        <span class="chip" onclick="toggleChip(this)">Watercolor</span>
+        <span class="chip" onclick="toggleChip(this)">8-bit</span>
+      </div>
+
+      <div class="input-row">
+        <select class="test-input" style="flex:0 0 130px;">
+          <option>1:1 Square</option><option>16:9 Wide</option>
+          <option>9:16 Portrait</option><option>4:3 Standard</option>
+        </select>
+        <select class="test-input" style="flex:0 0 110px;">
+          <option>Draft</option><option>Standard</option><option>High Res</option>
+        </select>
+        <button class="run-btn" onclick="simImages()">Generate ✦</button>
+      </div>
+    </div>
+
+    <div class="image-placeholders">
+      <div class="img-ph" id="iph0">No output yet</div>
+      <div class="img-ph" id="iph1">—</div>
+      <div class="img-ph" id="iph2">—</div>
+    </div>
+
+    <div class="status-bar" style="margin-top:12px;">
+      <div class="status-dot" id="img-dot"></div>
+      <span id="img-status">Ready to generate</span>
+    </div>
+
+    <div class="note">
+      <strong>Testing note:</strong> Slots show loading states, style selection, and output layout. Connect a real image API (Replicate, Stability AI, DALL·E) to replace placeholders.
+    </div>
+  </div>
+
+  <!-- ═══════════════ VIDEO ═══════════════ -->
+  <div id="video" class="page">
+    <div class="section-header">
+      <span class="section-tag">Testing Panel</span>
+      <h2>Video Generator</h2>
+      <p>Test scene descriptions, motion controls, and clip timeline layout.</p>
+    </div>
+
+    <div class="test-panel">
+      <h4>Scene description</h4>
+      <textarea class="test-input" id="vid-prompt" placeholder="A timelapse of a futuristic skyline at golden hour, camera slowly pulling back..."></textarea>
+      <div class="input-row">
+        <select class="test-input" style="flex:0 0 120px;"><option>4 seconds</option><option>8 seconds</option><option>15 seconds</option></select>
+        <select class="test-input" style="flex:0 0 100px;"><option>720p</option><option>1080p</option><option>4K</option></select>
+        <select class="test-input" style="flex:0 0 100px;"><option>24 fps</option><option>30 fps</option><option>60 fps</option></select>
+        <button class="run-btn" onclick="simVideo()">Render ✦</button>
+      </div>
+    </div>
+
+    <div class="test-panel">
+      <h4>Timeline preview</h4>
+      <div style="display:flex;gap:8px;align-items:center;margin-bottom:12px;">
+        <div style="flex:1;height:36px;background:rgba(224,64,251,0.07);border:0.5px solid rgba(224,64,251,0.18);border-radius:8px;display:flex;align-items:center;padding:0 14px;">
+          <span style="font-size:12px;color:rgba(224,64,251,0.55);" id="vid-label">Clip 1 — waiting for prompt</span>
+        </div>
+        <span style="font-size:12px;color:rgba(255,255,255,0.22);" id="vid-dur">0s</span>
+      </div>
+      <div style="height:4px;background:rgba(255,255,255,0.05);border-radius:2px;overflow:hidden;">
+        <div id="vid-bar" style="height:100%;width:0%;background:linear-gradient(90deg,#7c4dff,#e040fb);border-radius:2px;transition:width 1.6s ease;"></div>
+      </div>
+    </div>
+
+    <div class="status-bar">
+      <div class="status-dot" id="vid-dot"></div>
+      <span id="vid-status">Ready</span>
+    </div>
+  </div>
+
+  <!-- ═══════════════ VOICE ═══════════════ -->
+  <div id="voice" class="page">
+    <div class="section-header">
+      <span class="section-tag">Testing Panel</span>
+      <h2>Voice Studio</h2>
+      <p>Test voice profiles, emotion controls, and playback flow.</p>
+    </div>
+
+    <div class="test-panel">
+      <h4>Voice character</h4>
+      <div class="char-builder" style="margin-bottom:14px;">
+        <div class="field-group"><label>Voice type</label>
+          <select class="test-input"><option>Deep narrator</option><option>Bright feminine</option><option>Gravelly male</option><option>Youthful neutral</option><option>Elder wise</option></select>
+        </div>
+        <div class="field-group"><label>Emotion</label>
+          <select class="test-input"><option>Calm</option><option>Dramatic</option><option>Excited</option><option>Melancholic</option><option>Authoritative</option></select>
+        </div>
+        <div class="field-group"><label>Pace</label>
+          <select class="test-input"><option>Slow</option><option>Normal</option><option>Fast</option></select>
+        </div>
+        <div class="field-group"><label>Accent</label>
+          <select class="test-input"><option>Neutral</option><option>British</option><option>Southern US</option><option>NYC</option><option>Australian</option></select>
+        </div>
+      </div>
+      <textarea class="test-input" id="voice-text" placeholder="In a world where imagination is the only currency..."></textarea>
+      <div style="margin-top:12px;">
+        <button class="run-btn" onclick="simVoice()">Synthesize ✦</button>
+      </div>
+    </div>
+
+    <div class="test-panel">
+      <h4>Waveform preview</h4>
+      <div class="voice-waveform" id="waveform"></div>
+      <div style="display:flex;justify-content:center;gap:12px;">
+        <button class="run-btn" id="play-btn" style="opacity:0.35;cursor:not-allowed;" onclick="playVoice()">▶ Play</button>
+        <button class="run-btn cyan" style="opacity:0.35;cursor:not-allowed;">⬇ Download</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════ SCENE BUILDER ═══════════════ -->
+  <div id="scene" class="page">
+    <div class="section-header">
+      <span class="section-tag">Testing Panel</span>
+      <h2>Scene Builder</h2>
+      <p>Compose cinematic environments with layered world-building controls.</p>
+    </div>
+
+    <div class="test-panel">
+      <h4>Environment properties</h4>
+      <div class="scene-props">
+        <div class="field-group"><label>Setting</label>
+          <select class="test-input"><option>Urban city</option><option>Deep forest</option><option>Space station</option><option>Underwater</option><option>Desert wasteland</option><option>Medieval castle</option></select>
+        </div>
+        <div class="field-group"><label>Time of day</label>
+          <select class="test-input"><option>Golden hour</option><option>Midnight</option><option>Overcast day</option><option>Dawn</option><option>Sunset</option></select>
+        </div>
+        <div class="field-group"><label>Weather</label>
+          <select class="test-input"><option>Clear</option><option>Rain</option><option>Fog</option><option>Snow</option><option>Storm</option></select>
+        </div>
+        <div class="field-group"><label>Era</label>
+          <select class="test-input"><option>Near future</option><option>Far future</option><option>Present day</option><option>1980s</option><option>Medieval</option><option>Ancient</option></select>
+        </div>
+      </div>
+      <div class="field-group" style="margin-bottom:14px;"><label>Additional details</label>
+        <textarea class="test-input" placeholder="Neon signs flickering, puddles reflecting distant skyscrapers..."></textarea>
+      </div>
+      <button class="run-btn" onclick="simScene()">Build Scene ✦</button>
+    </div>
+
+    <div class="output-box" id="scene-out"></div>
+  </div>
+
+  <!-- ═══════════════ CHARACTER ═══════════════ -->
+  <div id="character" class="page">
+    <div class="section-header">
+      <span class="section-tag">Testing Panel</span>
+      <h2>Character Studio</h2>
+      <p>Define persistent characters to maintain visual consistency across all generated content.</p>
+    </div>
+
+    <div class="test-panel">
+      <h4>Character profile</h4>
+      <div class="char-builder">
+        <div class="field-group"><label>Name</label><input class="test-input" placeholder="Elena Voss" /></div>
+        <div class="field-group"><label>Age range</label>
+          <select class="test-input"><option>Teen (13–17)</option><option>Young adult (18–25)</option><option>Adult (26–40)</option><option>Middle aged (41–60)</option><option>Elder (60+)</option></select>
+        </div>
+        <div class="field-group"><label>Build</label>
+          <select class="test-input"><option>Slim</option><option>Athletic</option><option>Stocky</option><option>Heavyset</option></select>
+        </div>
+        <div class="field-group"><label>Style</label>
+          <select class="test-input"><option>Cyberpunk</option><option>Elegant</option><option>Rugged</option><option>Casual</option><option>Military</option><option>Fantastical</option></select>
+        </div>
+      </div>
+      <div class="field-group" style="margin-bottom:14px;"><label>Personality / backstory</label>
+        <textarea class="test-input" placeholder="A reformed hacker turned detective in 2074 Neo-Tokyo..."></textarea>
+      </div>
+      <div style="display:flex;gap:10px;">
+        <button class="run-btn" onclick="simCharPortrait()">Generate Portrait ✦</button>
+        <button class="run-btn cyan" onclick="simCharSave()">Save to Roster</button>
+      </div>
+    </div>
+
+    <div class="output-box" id="char-out"></div>
+
+    <div class="note">
+      <strong>What to add next:</strong> Reference image upload, consistent seed locking, cross-project linking, costume/wardrobe layers.
+    </div>
+  </div>
+
+  <!-- ═══════════════ PROMPT VAULT ═══════════════ -->
+  <div id="vault" class="page">
+    <div class="section-header">
+      <span class="section-tag">Testing Panel</span>
+      <h2>Prompt Vault</h2>
+      <p>Save your best prompts and organize by project or style. Test tagging and search flow.</p>
+    </div>
+
+    <div class="test-panel">
+      <h4>Save a prompt</h4>
+      <div class="input-row">
+        <input class="test-input" id="vault-title" placeholder="Prompt name..." style="flex:0 0 180px;" />
+        <input class="test-input" id="vault-body"  placeholder="Prompt text..." />
+        <select class="test-input" id="vault-type" style="flex:0 0 110px;"><option>Image</option><option>Video</option><option>Voice</option><option>Scene</option></select>
+        <button class="run-btn" onclick="saveVaultPrompt()">Save</button>
+      </div>
+    </div>
+
+    <div class="vault-list" id="vault-list">
+      <div class="vault-row">
+        <span class="vault-tag" style="background:rgba(224,64,251,0.1);color:#e040fb;border:0.5px solid rgba(224,64,251,0.22);">Image</span>
+        <div><div class="vault-title">Cyberpunk rain scene</div><div class="vault-text">A rain-soaked alleyway at night, holographic billboards reflecting in puddles, cinematic lighting, 35mm lens</div></div>
+      </div>
+      <div class="vault-row">
+        <span class="vault-tag" style="background:rgba(64,196,255,0.09);color:#40c4ff;border:0.5px solid rgba(64,196,255,0.2);">Voice</span>
+        <div><div class="vault-title">Trailer narration opener</div><div class="vault-text">In a world where the last city stands between humanity and extinction...</div></div>
+      </div>
+      <div class="vault-row">
+        <span class="vault-tag" style="background:rgba(124,77,255,0.1);color:#b39ddb;border:0.5px solid rgba(124,77,255,0.22);">Scene</span>
+        <div><div class="vault-title">Space observatory</div><div class="vault-text">Brutalist concrete dome on a mountain peak, night sky blazing with stars, lone figure silhouette at the window</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════ COMMUNITY ═══════════════ -->
+  <div id="community" class="page">
+    <div class="section-header">
+      <span class="section-tag">Testing Panel</span>
+      <h2>Community</h2>
+      <p>Explore and remix community creations. Layout test for the discovery feed.</p>
+    </div>
+
+    <div class="style-chips" style="margin-bottom:22px;">
+      <span class="chip selected" onclick="toggleChip(this)">All</span>
+      <span class="chip" onclick="toggleChip(this)">Images</span>
+      <span class="chip" onclick="toggleChip(this)">Video</span>
+      <span class="chip" onclick="toggleChip(this)">Characters</span>
+      <span class="chip" onclick="toggleChip(this)">Scenes</span>
+      <span class="chip" onclick="toggleChip(this)">Trending</span>
+    </div>
+
+    <div class="comm-grid">
+      <div class="comm-card">
+        <div class="comm-card-top">
+          <div><div class="comm-title">Neon District 2089</div><div class="comm-author">by @vox_render</div></div>
+          <span class="comm-badge" style="background:rgba(224,64,251,0.1);color:#e040fb;">Image</span>
+        </div>
+        <div style="height:90px;background:rgba(224,64,251,0.05);border-radius:8px;border:0.5px solid rgba(224,64,251,0.1);"></div>
+        <div class="comm-foot"><span class="comm-stat">♥ 2.4k</span><span class="comm-stat">⟳ 847 remixes</span></div>
+      </div>
+      <div class="comm-card">
+        <div class="comm-card-top">
+          <div><div class="comm-title">Aria — AI Detective</div><div class="comm-author">by @cinema_craft</div></div>
+          <span class="comm-badge" style="background:rgba(64,196,255,0.09);color:#40c4ff;">Character</span>
+        </div>
+        <div style="height:90px;background:rgba(64,196,255,0.04);border-radius:8px;border:0.5px solid rgba(64,196,255,0.1);"></div>
+        <div class="comm-foot"><span class="comm-stat">♥ 1.1k</span><span class="comm-stat">⟳ 320 remixes</span></div>
+      </div>
+      <div class="comm-card">
+        <div class="comm-card-top">
+          <div><div class="comm-title">Orbital Station Omega</div><div class="comm-author">by @spaceframe</div></div>
+          <span class="comm-badge" style="background:rgba(124,77,255,0.1);color:#b39ddb;">Scene</span>
+        </div>
+        <div style="height:90px;background:rgba(124,77,255,0.05);border-radius:8px;border:0.5px solid rgba(124,77,255,0.12);"></div>
+        <div class="comm-foot"><span class="comm-stat">♥ 3.7k</span><span class="comm-stat">⟳ 1.2k remixes</span></div>
+      </div>
+      <div class="comm-card">
+        <div class="comm-card-top">
+          <div><div class="comm-title">Abyssal Dream</div><div class="comm-author">by @deep_frames</div></div>
+          <span class="comm-badge" style="background:rgba(76,175,130,0.09);color:#4caf82;">Video</span>
+        </div>
+        <div style="height:90px;background:rgba(76,175,130,0.04);border-radius:8px;border:0.5px solid rgba(76,175,130,0.09);"></div>
+        <div class="comm-foot"><span class="comm-stat">♥ 887</span><span class="comm-stat">⟳ 211 remixes</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════ DASHBOARD ═══════════════ -->
+  <div id="dashboard" class="page">
+    <div class="section-header">
+      <span class="section-tag">Creator Dashboard</span>
+      <h2>Your Studio</h2>
+      <p>Usage overview and active projects. Test the data layout and information hierarchy.</p>
+    </div>
+
+    <div class="stats-row">
+      <div class="stat-card"><div class="stat-label">Images generated</div><div class="stat-value">47</div><div class="stat-sub">+12 this week</div></div>
+      <div class="stat-card"><div class="stat-label">Video clips</div><div class="stat-value">8</div><div class="stat-sub">+3 this week</div></div>
+      <div class="stat-card"><div class="stat-label">Saved prompts</div><div class="stat-value">23</div><div class="stat-sub">in vault</div></div>
+      <div class="stat-card"><div class="stat-label">Credits left</div><div class="stat-value">840</div><div class="stat-sub">of 1,000</div></div>
+    </div>
+
+    <div class="test-panel">
+      <h4>Active projects</h4>
+      <div class="proj-list">
+        <div class="proj-row"><div class="proj-dot" style="background:#e040fb;"></div><div class="proj-name">Neon City Short Film</div><div class="proj-meta">Images · Video · Voice</div><div class="proj-bar"><div class="proj-fill" style="width:68%;background:#e040fb;"></div></div><span class="proj-meta">68%</span></div>
+        <div class="proj-row"><div class="proj-dot" style="background:#40c4ff;"></div><div class="proj-name">Character Collection Vol.1</div><div class="proj-meta">Characters</div><div class="proj-bar"><div class="proj-fill" style="width:40%;background:#40c4ff;"></div></div><span class="proj-meta">40%</span></div>
+        <div class="proj-row"><div class="proj-dot" style="background:#4caf82;"></div><div class="proj-name">Ambient Worlds Pack</div><div class="proj-meta">Scenes · Images</div><div class="proj-bar"><div class="proj-fill" style="width:90%;background:#4caf82;"></div></div><span class="proj-meta">90%</span></div>
+        <div class="proj-row"><div class="proj-dot" style="background:rgba(255,255,255,0.15);"></div><div class="proj-name" style="color:rgba(255,255,255,0.35);">New project…</div><div class="proj-meta">—</div><div class="proj-bar"></div><span class="proj-meta" style="color:rgba(224,64,251,0.6);cursor:pointer;">+ create</span></div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /shell -->
+
+<script>
+// ─── NAV ───
+function show(id, btn) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  if (btn) btn.classList.add('active');
+}
+
+// ─── CHIPS ───
+function toggleChip(el) { el.classList.toggle('selected'); }
+
+// ─── WAVEFORM INIT ───
+(function buildWave() {
+  const heights = [8,16,24,12,32,20,14,28,10,22,36,18,26,12,30,8,20,34,16,24];
+  const wf = document.getElementById('waveform');
+  heights.forEach(h => {
+    const b = document.createElement('div');
+    b.className = 'bar';
+    b.style.height = h + 'px';
+    wf.appendChild(b);
+  });
+})();
+
+// ─── IMAGES ───
+function simImages() {
+  ['iph0','iph1','iph2'].forEach((id, i) => {
+    const el = document.getElementById(id);
+    el.className = 'img-ph loading';
+    el.textContent = 'Generating…';
+  });
+  const dot = document.getElementById('img-dot');
+  dot.className = 'status-dot active';
+  document.getElementById('img-status').textContent = 'Generating 3 variants…';
+  setTimeout(() => {
+    ['iph0','iph1','iph2'].forEach((id, i) => {
+      const el = document.getElementById(id);
+      el.className = 'img-ph ready';
+      el.textContent = 'Output ' + (i+1) + ' ✦ ready';
+    });
+    dot.className = 'status-dot green';
+    document.getElementById('img-status').textContent = '3 images ready — 0.8s avg render';
+  }, 2000);
+}
+
+// ─── VIDEO ───
+function simVideo() {
+  const prompt = document.getElementById('vid-prompt').value || 'Untitled scene';
+  const dur = document.querySelector('#video select').value;
+  document.getElementById('vid-dot').className = 'status-dot active';
+  document.getElementById('vid-status').textContent = 'Rendering…';
+  document.getElementById('vid-label').textContent = 'Clip 1 — ' + prompt.slice(0,45) + (prompt.length > 45 ? '…' : '');
+  document.getElementById('vid-dur').textContent = dur;
+  const bar = document.getElementById('vid-bar');
+  bar.style.width = '0%';
+  setTimeout(() => bar.style.width = '100%', 80);
+  setTimeout(() => {
+    document.getElementById('vid-dot').className = 'status-dot green';
+    document.getElementById('vid-status').textContent = 'Render complete — ready to preview';
+  }, 1800);
+}
+
+// ─── VOICE ───
+function simVoice() {
+  const bars = document.querySelectorAll('#waveform .bar');
+  let step = 0;
+  const iv = setInterval(() => {
+    bars.forEach(b => { b.className = 'bar on'; b.style.height = (Math.random()*36+6)+'px'; });
+    if (++step > 14) {
+      clearInterval(iv);
+      const pb = document.getElementById('play-btn');
+      pb.style.opacity = '1'; pb.style.cursor = 'pointer';
+    }
+  }, 100);
+}
+
+function playVoice() {
+  const bars = document.querySelectorAll('#waveform .bar');
+  let t = 0;
+  const iv = setInterval(() => {
+    bars.forEach(b => b.style.height = (Math.random()*32+6)+'px');
+    if (++t > 35) {
+      clearInterval(iv);
+      const defaults = [8,16,24,12,32,20,14,28,10,22,36,18,26,12,30,8,20,34,16,24];
+      bars.forEach((b,i) => b.style.height = defaults[i]+'px');
+    }
+  }, 80);
+}
+
+// ─── SCENE ───
+function simScene() {
+  const out = document.getElementById('scene-out');
+  out.className = 'output-box show';
+  out.textContent = 'Building world…';
+  setTimeout(() => {
+    out.textContent = '✦ Scene locked: A sprawling urban metropolis shrouded in pre-dawn fog. Brutalist towers pierce the low cloud layer, amber windows glowing. Rain-slicked streets catch neon reflections from elevated transit lines. The year is unspecified — it feels both ancient and not-yet-arrived. Recommend: cinematic overhead establishing shot, then street-level push-in.';
+  }, 900);
+}
+
+// ─── CHARACTER ───
+function simCharPortrait() {
+  const out = document.getElementById('char-out');
+  out.className = 'output-box show';
+  out.textContent = 'Generating portrait…';
+  setTimeout(() => {
+    out.textContent = '✦ Portrait ready. Character seed locked: #AU-4471. Visual consistency maintained across this session. Add to a project to persist across generations. Next: generate outfit variants, expression sheet, or 3/4 angle view.';
+  }, 1200);
+}
+function simCharSave() {
+  const out = document.getElementById('char-out');
+  out.className = 'output-box show';
+  out.textContent = '✦ Saved to roster. Character ID: #AU-4471 — accessible from any project. You can now reference this character in image and video prompts to maintain visual consistency.';
+}
+
+// ─── VAULT ───
+function saveVaultPrompt() {
+  const title = document.getElementById('vault-title').value.trim();
+  const body  = document.getElementById('vault-body').value.trim();
+  const type  = document.getElementById('vault-type').value;
+  if (!title || !body) return;
+  const colors = {
+    Image: 'rgba(224,64,251,0.1);color:#e040fb;border:0.5px solid rgba(224,64,251,0.22)',
+    Video: 'rgba(76,175,130,0.09);color:#4caf82;border:0.5px solid rgba(76,175,130,0.2)',
+    Voice: 'rgba(64,196,255,0.09);color:#40c4ff;border:0.5px solid rgba(64,196,255,0.2)',
+    Scene: 'rgba(124,77,255,0.1);color:#b39ddb;border:0.5px solid rgba(124,77,255,0.22)'
+  };
+  const row = document.createElement('div');
+  row.className = 'vault-row';
+  row.innerHTML = `<span class="vault-tag" style="background:${colors[type]}">${type}</span><div><div class="vault-title">${title}</div><div class="vault-text">${body}</div></div>`;
+  document.getElementById('vault-list').prepend(row);
+  document.getElementById('vault-title').value = '';
+  document.getElementById('vault-body').value = '';
+}
+</script>
+</body>
+</html>
