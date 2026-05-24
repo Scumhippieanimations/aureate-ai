@@ -1,0 +1,1573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Aureate Design Studios</title>
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=DM+Sans:wght@200;300;400;500&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{--mg:#e040fb;--cy:#40c4ff;--vi:#7c4dff;--go:#ffc44d;--gr:#4caf82;--bg:#05030e;--sur:rgba(255,255,255,0.03);--bor:rgba(255,255,255,0.08);}
+html{scroll-behavior:smooth;}
+body{background:#05030e;color:#e8e0f0;font-family:"DM Sans",sans-serif;min-height:100vh;overflow-x:hidden;cursor:none;}
+.cursor{position:fixed;width:12px;height:12px;background:#e040fb;border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .15s,height .15s;mix-blend-mode:screen;}
+.cursor-ring{position:fixed;width:36px;height:36px;border:1px solid rgba(224,64,251,0.4);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);}
+.bg-layer{position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(ellipse 70% 50% at 15% 15%,rgba(224,64,251,0.13) 0%,transparent 60%),radial-gradient(ellipse 60% 45% at 85% 80%,rgba(64,196,255,0.08) 0%,transparent 60%),#05030e;}
+.orb{position:fixed;border-radius:50%;pointer-events:none;z-index:0;filter:blur(90px);opacity:0.18;animation:drift 22s ease-in-out infinite alternate;}
+.o1{width:600px;height:600px;background:radial-gradient(circle,#e040fb,transparent);top:-200px;left:-200px;}
+.o2{width:500px;height:500px;background:radial-gradient(circle,#40c4ff,transparent);bottom:-150px;right:-150px;animation-delay:-11s;}
+.o3{width:350px;height:350px;background:radial-gradient(circle,#7c4dff,transparent);top:40%;left:35%;animation-delay:-6s;}
+@keyframes drift{0%{transform:translate(0,0)scale(1)}50%{transform:translate(40px,-50px)scale(1.06)}100%{transform:translate(-25px,25px)scale(0.94)}}
+.grain{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:0.03;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:200px 200px;}
+.shell{position:relative;z-index:2;}
+#splash{position:fixed;inset:0;z-index:1000;background:#05030e;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity 1.2s ease,visibility 1.2s ease;}
+#splash.gone{opacity:0;visibility:hidden;pointer-events:none;}
+.splash-logo{font-family:"Great Vibes",cursive;font-size:clamp(60px,10vw,120px);background:linear-gradient(135deg,#fff 0%,#f5c0ff 20%,#e040fb 45%,#7c4dff 65%,#40c4ff 85%,#fff 100%);background-size:300% 300%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:shimmer 3s ease-in-out infinite,fadeUp 1.2s ease both;filter:drop-shadow(0 0 40px rgba(224,64,251,0.7));}
+.splash-tag{font-family:"Cormorant Garamond",serif;font-style:italic;font-size:18px;letter-spacing:0.15em;color:rgba(255,255,255,0.3);margin-top:16px;animation:fadeUp 1.2s ease 0.4s both;}
+.splash-bar{width:200px;height:1px;background:rgba(255,255,255,0.08);margin-top:48px;overflow:hidden;border-radius:2px;}
+.splash-fill{height:100%;width:0%;background:linear-gradient(90deg,#7c4dff,#e040fb,#40c4ff);animation:fillBar 2.8s ease 0.5s forwards;}
+@keyframes fillBar{to{width:100%}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes shimmer{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+nav{position:sticky;top:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:10px 36px;background:rgba(5,3,14,0.88);backdrop-filter:blur(32px);border-bottom:0.5px solid rgba(255,255,255,0.06);}
+.nav-logo{font-family:"Great Vibes",cursive;font-size:32px;background:linear-gradient(135deg,#fff,#f8c8ff,#e040fb,#40c4ff,#fff);background-size:300% 300%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:shimmer 5s ease-in-out infinite;filter:drop-shadow(0 0 12px rgba(224,64,251,0.5));cursor:pointer;white-space:nowrap;user-select:none;}
+.nav-center{display:flex;gap:2px;align-items:center;}
+.nav-item{position:relative;}
+.nav-btn{background:none;border:none;color:rgba(255,255,255,0.48);font-family:"DM Sans",sans-serif;font-size:13px;padding:8px 13px;border-radius:8px;cursor:pointer;transition:all 0.2s;display:flex;align-items:center;gap:5px;white-space:nowrap;}
+.nav-btn:hover,.nav-item:hover .nav-btn{color:#fff;background:rgba(255,255,255,0.07);}
+.nav-arr{font-size:8px;opacity:0.45;transition:transform 0.25s;}
+.nav-item:hover .nav-arr{transform:rotate(180deg);}
+.dropdown{position:absolute;top:calc(100% + 10px);left:50%;transform:translateX(-50%)translateY(-8px)scale(0.97);background:rgba(8,5,20,0.98);backdrop-filter:blur(28px);border:0.5px solid rgba(255,255,255,0.1);border-radius:18px;padding:10px;min-width:240px;opacity:0;visibility:hidden;pointer-events:none;transition:all 0.22s cubic-bezier(0.34,1.4,0.64,1);box-shadow:0 24px 60px rgba(0,0,0,0.6);}
+.nav-item:hover .dropdown{opacity:1;visibility:visible;pointer-events:all;transform:translateX(-50%)translateY(0)scale(1);}
+.dd-item{display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:10px;cursor:pointer;transition:all 0.15s;color:rgba(255,255,255,0.5);font-size:13px;user-select:none;}
+.dd-item:hover{background:rgba(224,64,251,0.1);color:#fff;}
+.dd-icon{font-size:15px;width:22px;text-align:center;}
+.dd-badge{font-size:9px;background:rgba(224,64,251,0.15);color:#e040fb;border-radius:4px;padding:2px 6px;margin-left:auto;letter-spacing:0.05em;font-weight:600;}
+.dd-badge.cy{background:rgba(64,196,255,0.12);color:#40c4ff;}
+.dd-badge.gr{background:rgba(76,175,130,0.12);color:#4caf82;}
+.dd-div{height:0.5px;background:rgba(255,255,255,0.07);margin:6px 2px;}
+.nav-right{display:flex;align-items:center;gap:8px;}
+.nav-cta{background:linear-gradient(135deg,#e040fb,#7c4dff);color:#fff;border:none;border-radius:9px;padding:9px 20px;font-size:13px;font-weight:500;cursor:pointer;font-family:"DM Sans",sans-serif;transition:all 0.2s;box-shadow:0 0 20px rgba(224,64,251,0.25);}
+.nav-cta:hover{transform:translateY(-1px);box-shadow:0 0 35px rgba(224,64,251,0.45);}
+.nav-login{background:rgba(255,255,255,0.05);border:0.5px solid rgba(255,255,255,0.1);color:rgba(255,255,255,0.55);border-radius:9px;padding:9px 16px;font-size:13px;cursor:pointer;font-family:"DM Sans",sans-serif;transition:all 0.2s;}
+.nav-login:hover{background:rgba(255,255,255,0.09);color:#fff;}
+.nav-user{display:none;align-items:center;gap:8px;}
+.nav-avatar{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#e040fb,#7c4dff);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:600;color:#fff;cursor:pointer;border:1.5px solid rgba(224,64,251,0.4);}
+.nav-username{font-size:13px;color:rgba(255,255,255,0.7);}
+.page{display:none;animation:pageIn 0.35s cubic-bezier(0.34,1.2,0.64,1);}
+.page.active{display:block;}
+@keyframes pageIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+.sw{padding:50px 40px;max-width:1000px;margin:0 auto;}
+.pg-tag{display:block;font-size:10px;letter-spacing:0.22em;text-transform:uppercase;color:rgba(255,255,255,0.25);margin-bottom:10px;}
+.pg-title{font-family:"Great Vibes",cursive;font-size:58px;margin-bottom:10px;background:linear-gradient(135deg,#fff,#e040fb,#40c4ff);background-size:200%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:shimmer 5s ease-in-out infinite;filter:drop-shadow(0 0 12px rgba(224,64,251,0.35));}
+.pg-desc{font-size:15px;color:rgba(255,255,255,0.36);line-height:1.75;font-weight:300;max-width:620px;margin-bottom:32px;}
+.panel{background:rgba(255,255,255,0.03);border:0.5px solid rgba(255,255,255,0.08);border-radius:18px;padding:26px;margin-bottom:16px;}
+.panel-title{font-size:10px;font-weight:500;color:rgba(255,255,255,0.4);margin-bottom:16px;letter-spacing:0.12em;text-transform:uppercase;}
+.ti{width:100%;background:rgba(255,255,255,0.05);border:0.5px solid rgba(255,255,255,0.1);border-radius:10px;padding:11px 16px;color:#fff;font-family:"DM Sans",sans-serif;font-size:14px;outline:none;transition:border-color 0.2s;-webkit-appearance:none;}
+.ti:focus{border-color:rgba(224,64,251,0.45);}
+.ti::placeholder{color:rgba(255,255,255,0.16);}
+select.ti option{background:#0e0b1e;}
+textarea.ti{resize:vertical;min-height:90px;line-height:1.65;}
+.row{display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap;align-items:flex-end;}
+.fg{display:flex;flex-direction:column;gap:6px;}
+.fg label{font-size:10px;color:rgba(255,255,255,0.28);letter-spacing:0.1em;text-transform:uppercase;}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;}
+.chips{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:14px;}
+.chip{background:rgba(255,255,255,0.04);border:0.5px solid rgba(255,255,255,0.09);border-radius:999px;padding:6px 14px;font-size:12px;color:rgba(255,255,255,0.42);cursor:pointer;transition:all 0.15s;font-family:"DM Sans",sans-serif;user-select:none;}
+.chip:hover{border-color:rgba(224,64,251,0.2);}
+.chip.on{background:rgba(224,64,251,0.12);border-color:rgba(224,64,251,0.35);color:#e040fb;}
+.run{background:rgba(224,64,251,0.11);color:#e040fb;border:0.5px solid rgba(224,64,251,0.28);border-radius:10px;padding:11px 22px;font-size:13px;font-weight:500;cursor:pointer;font-family:"DM Sans",sans-serif;transition:all 0.2s;white-space:nowrap;}
+.run:hover{background:rgba(224,64,251,0.22);box-shadow:0 0 22px rgba(224,64,251,0.2);}
+.run:disabled{opacity:0.35;cursor:not-allowed;}
+.run.cy{background:rgba(64,196,255,0.09);color:#40c4ff;border-color:rgba(64,196,255,0.22);}
+.run.cy:hover{background:rgba(64,196,255,0.2);}
+.run.go{background:rgba(255,196,77,0.09);color:#ffc44d;border-color:rgba(255,196,77,0.22);}
+.run.go:hover{background:rgba(255,196,77,0.2);}
+.run.gr{background:rgba(76,175,130,0.09);color:#4caf82;border-color:rgba(76,175,130,0.22);}
+.run.gr:hover{background:rgba(76,175,130,0.2);}
+.run.vi{background:rgba(124,77,255,0.11);color:#b39ddb;border-color:rgba(124,77,255,0.28);}
+.run.big{padding:15px 40px;font-size:15px;border-radius:12px;}
+.dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,0.12);flex-shrink:0;}
+.dot.g{background:#4caf82;}.dot.a{background:#e040fb;animation:pulse 1.1s ease-in-out infinite;}.dot.r{background:#ff5555;}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.15}}
+.status{display:flex;align-items:center;gap:8px;font-size:12px;color:rgba(255,255,255,0.25);margin-top:10px;}
+.note{background:rgba(255,193,64,0.05);border:0.5px solid rgba(255,193,64,0.18);border-radius:10px;padding:14px 18px;font-size:13px;color:rgba(255,193,64,0.55);line-height:1.55;margin-top:14px;}
+.note strong{color:rgba(255,193,64,0.85);}
+.hero-section{min-height:92vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:80px 40px 60px;position:relative;overflow:hidden;}
+.film-strip{position:absolute;left:0;right:0;height:5px;background:repeating-linear-gradient(90deg,rgba(224,64,251,0.3) 0,rgba(224,64,251,0.3) 18px,transparent 18px,transparent 28px);}
+.film-strip.top{top:0;}.film-strip.bottom{bottom:0;background:repeating-linear-gradient(90deg,rgba(64,196,255,0.2) 0,rgba(64,196,255,0.2) 18px,transparent 18px,transparent 28px);}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;font-size:10px;letter-spacing:0.25em;text-transform:uppercase;color:rgba(224,64,251,0.65);border:0.5px solid rgba(224,64,251,0.2);background:rgba(224,64,251,0.05);border-radius:999px;padding:7px 20px;margin-bottom:36px;}
+.ldot{width:5px;height:5px;border-radius:50%;background:#4caf82;animation:pulse 1.2s ease-in-out infinite;}
+.hero-title{font-family:"Great Vibes",cursive;font-size:clamp(70px,12vw,145px);line-height:0.92;margin-bottom:12px;background:linear-gradient(135deg,#fff 0%,#f5c0ff 20%,#e040fb 45%,#7c4dff 65%,#40c4ff 85%,#fff 100%);background-size:300% 300%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:shimmer 5s ease-in-out infinite;filter:drop-shadow(0 0 50px rgba(224,64,251,0.55));}
+.hero-sub{font-family:"Cormorant Garamond",serif;font-size:14px;letter-spacing:0.4em;text-transform:uppercase;color:rgba(255,255,255,0.22);margin-bottom:32px;}
+.hero-desc{font-size:17px;color:rgba(255,255,255,0.36);line-height:1.85;max-width:540px;font-weight:300;margin-bottom:52px;}
+.hero-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-bottom:80px;}
+.btn-p{background:linear-gradient(135deg,#e040fb,#7c4dff);color:#fff;border:none;border-radius:12px;padding:15px 36px;font-size:14px;font-weight:500;cursor:pointer;font-family:"DM Sans",sans-serif;transition:all 0.25s;box-shadow:0 0 30px rgba(224,64,251,0.3);}
+.btn-p:hover{transform:translateY(-3px);box-shadow:0 0 55px rgba(224,64,251,0.55);}
+.btn-g{background:rgba(255,255,255,0.05);color:rgba(255,255,255,0.6);border:0.5px solid rgba(255,255,255,0.12);border-radius:12px;padding:15px 36px;font-size:14px;cursor:pointer;font-family:"DM Sans",sans-serif;transition:all 0.2s;}
+.btn-g:hover{background:rgba(255,255,255,0.09);color:#fff;transform:translateY(-2px);}
+.ticker-wrap{overflow:hidden;border-top:0.5px solid rgba(255,255,255,0.05);border-bottom:0.5px solid rgba(255,255,255,0.05);padding:13px 0;}
+.ticker{display:flex;animation:ticker 35s linear infinite;}
+.ti-item{white-space:nowrap;padding:0 36px;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:rgba(255,255,255,0.18);}
+.tdot{color:#e040fb;margin-right:8px;}
+@keyframes ticker{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.tools-section{padding:80px 40px 100px;max-width:1100px;margin:0 auto;}
+.section-title{font-family:"Great Vibes",cursive;font-size:54px;text-align:center;margin-bottom:56px;background:linear-gradient(135deg,#fff,#e040fb,#40c4ff);background-size:200%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:shimmer 5s ease-in-out infinite;}
+.tools-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+.tc{background:rgba(255,255,255,0.03);border:0.5px solid rgba(255,255,255,0.08);border-radius:22px;padding:30px;cursor:pointer;transition:all 0.3s cubic-bezier(0.34,1.2,0.64,1);position:relative;overflow:hidden;}
+.tc::before{content:"";position:absolute;inset:0;opacity:0;transition:opacity 0.3s;}
+.tc:hover{transform:translateY(-6px);}
+.tc:hover::before{opacity:1;}
+.tc-mg::before{background:linear-gradient(135deg,rgba(224,64,251,0.07),transparent);}
+.tc-mg:hover{border-color:rgba(224,64,251,0.3);}
+.tc-cy::before{background:linear-gradient(135deg,rgba(64,196,255,0.07),transparent);}
+.tc-cy:hover{border-color:rgba(64,196,255,0.3);}
+.tc-go::before{background:linear-gradient(135deg,rgba(255,196,77,0.07),transparent);}
+.tc-go:hover{border-color:rgba(255,196,77,0.3);}
+.tc-vi::before{background:linear-gradient(135deg,rgba(124,77,255,0.07),transparent);}
+.tc-vi:hover{border-color:rgba(124,77,255,0.3);}
+.tc-gr::before{background:linear-gradient(135deg,rgba(76,175,130,0.07),transparent);}
+.tc-gr:hover{border-color:rgba(76,175,130,0.3);}
+.tc.wide{grid-column:span 2;}
+.tc-num{font-size:10px;letter-spacing:0.22em;color:rgba(255,255,255,0.2);margin-bottom:16px;text-transform:uppercase;}
+.tc-icon{font-size:30px;margin-bottom:14px;}
+.tc-name{font-size:16px;font-weight:500;color:#fff;margin-bottom:4px;}
+.tc-beta{font-size:10px;font-weight:600;letter-spacing:0.08em;padding:3px 8px;border-radius:5px;margin-left:8px;vertical-align:middle;}
+.beta-mg{background:rgba(224,64,251,0.12);color:#e040fb;}
+.beta-cy{background:rgba(64,196,255,0.1);color:#40c4ff;}
+.beta-vi{background:rgba(124,77,255,0.12);color:#b39ddb;}
+.beta-go{background:rgba(255,196,77,0.1);color:#ffc44d;}
+.beta-gr{background:rgba(76,175,130,0.1);color:#4caf82;}
+.tc-desc{font-size:13px;color:rgba(255,255,255,0.36);line-height:1.65;font-weight:300;margin-top:8px;}
+.tc-arr{position:absolute;bottom:22px;right:22px;font-size:18px;color:rgba(255,255,255,0.15);transition:all 0.25s;}
+.tc:hover .tc-arr{color:#e040fb;transform:translate(3px,-3px);}
+.stats-section{padding:70px 40px;border-top:0.5px solid rgba(255,255,255,0.05);border-bottom:0.5px solid rgba(255,255,255,0.05);}
+.stats-inner{max-width:860px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:36px;text-align:center;}
+.stat-num{font-family:"Cormorant Garamond",serif;font-size:50px;font-weight:300;background:linear-gradient(135deg,#fff,#e040fb);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.stat-lbl{font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.28);margin-top:5px;}
+.exodus-hero{background:linear-gradient(135deg,rgba(224,64,251,0.08),rgba(124,77,255,0.05));border:0.5px solid rgba(224,64,251,0.15);border-radius:22px;padding:36px;margin-bottom:24px;text-align:center;}
+.exodus-name{font-family:"Great Vibes",cursive;font-size:72px;background:linear-gradient(135deg,#fff,#f5c0ff,#e040fb,#40c4ff);background-size:300%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:shimmer 4s ease-in-out infinite;filter:drop-shadow(0 0 25px rgba(224,64,251,0.6));}
+.exodus-tag{font-family:"Cormorant Garamond",serif;font-style:italic;font-size:15px;color:rgba(255,255,255,0.28);letter-spacing:0.2em;margin-top:6px;}
+.style-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:18px;}
+.sty{background:rgba(255,255,255,0.03);border:0.5px solid rgba(255,255,255,0.08);border-radius:10px;padding:10px 6px;text-align:center;cursor:pointer;transition:all 0.18s;user-select:none;}
+.sty:hover{border-color:rgba(224,64,251,0.2);}
+.sty.on{background:rgba(224,64,251,0.12);border-color:rgba(224,64,251,0.38);}
+.sty .si{font-size:18px;display:block;margin-bottom:4px;}
+.sty .sn{font-size:11px;color:rgba(255,255,255,0.45);}
+.sty.on .sn{color:#e040fb;}
+.gen-main-btn{width:100%;background:linear-gradient(135deg,#e040fb,#7c4dff);color:#fff;border:none;border-radius:14px;padding:18px;font-size:16px;font-weight:500;cursor:pointer;font-family:"DM Sans",sans-serif;transition:all 0.3s;box-shadow:0 0 35px rgba(224,64,251,0.3);letter-spacing:0.03em;margin-top:6px;}
+.gen-main-btn:hover{transform:translateY(-2px);box-shadow:0 0 60px rgba(224,64,251,0.5);}
+.gen-main-btn:disabled{opacity:0.4;cursor:not-allowed;transform:none;}
+.load-card{background:rgba(0,0,0,0.4);border:0.5px solid rgba(224,64,251,0.15);border-radius:18px;padding:60px 40px;text-align:center;display:none;}
+.load-orb{width:70px;height:70px;border-radius:50%;background:conic-gradient(#e040fb,#7c4dff,#40c4ff,#e040fb);margin:0 auto 20px;animation:spin 2s linear infinite;position:relative;}
+.load-orb::after{content:"";position:absolute;inset:4px;border-radius:50%;background:#05030e;}
+@keyframes spin{to{transform:rotate(360deg)}}
+.load-txt{font-size:15px;color:rgba(255,255,255,0.38);font-weight:300;}
+.load-sub{font-size:12px;color:rgba(255,255,255,0.2);margin-top:8px;}
+.load-bar-wrap{width:180px;height:2px;background:rgba(255,255,255,0.06);border-radius:2px;margin:18px auto 0;overflow:hidden;}
+.load-bar{height:100%;width:0%;background:linear-gradient(90deg,#7c4dff,#e040fb,#40c4ff);border-radius:2px;transition:width 14s ease;}
+.result-wrap{display:none;margin-top:24px;}
+.result-card{background:rgba(0,0,0,0.4);border:0.5px solid rgba(255,255,255,0.08);border-radius:18px;overflow:hidden;}
+#exodus-img{width:100%;display:block;border-radius:17px 17px 0 0;max-height:700px;object-fit:contain;}
+.result-bar{display:flex;gap:10px;padding:16px 18px;border-top:0.5px solid rgba(255,255,255,0.06);flex-wrap:wrap;}
+.result-meta{padding:10px 18px;background:rgba(0,0,0,0.2);display:flex;gap:16px;flex-wrap:wrap;}
+.meta-t{font-size:11px;color:rgba(255,255,255,0.22);}
+.meta-t span{color:rgba(224,64,251,0.6);}
+.chr-intro{text-align:center;padding:40px 20px;background:linear-gradient(135deg,rgba(64,196,255,0.06),rgba(124,77,255,0.04));border:0.5px solid rgba(64,196,255,0.12);border-radius:22px;margin-bottom:28px;}
+.chr-name{font-family:"Great Vibes",cursive;font-size:66px;background:linear-gradient(135deg,#fff,#40c4ff,#7c4dff);background-size:200%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:shimmer 4s ease-in-out infinite;filter:drop-shadow(0 0 20px rgba(64,196,255,0.5));}
+.chr-q{font-family:"Cormorant Garamond",serif;font-style:italic;font-size:22px;color:rgba(255,255,255,0.5);margin-top:12px;letter-spacing:0.05em;}
+.world-input-wrap{position:relative;margin-top:20px;}
+.world-input-wrap input{width:100%;background:rgba(255,255,255,0.05);border:0.5px solid rgba(64,196,255,0.2);border-radius:14px;padding:18px 130px 18px 22px;color:#fff;font-family:"DM Sans",sans-serif;font-size:16px;outline:none;transition:border-color 0.2s;}
+.world-input-wrap input:focus{border-color:rgba(64,196,255,0.5);}
+.world-input-wrap input::placeholder{color:rgba(255,255,255,0.18);}
+.world-go-btn{position:absolute;right:8px;top:50%;transform:translateY(-50%);background:linear-gradient(135deg,#40c4ff,#7c4dff);color:#fff;border:none;border-radius:10px;padding:10px 20px;font-size:13px;font-weight:500;cursor:pointer;font-family:"DM Sans",sans-serif;transition:all 0.2s;}
+.world-go-btn:hover{box-shadow:0 0 20px rgba(64,196,255,0.35);}
+.chr-result{display:none;margin-top:24px;}
+.chr-img-card{border-radius:18px;overflow:hidden;border:0.5px solid rgba(64,196,255,0.15);background:rgba(0,0,0,0.4);}
+#chronicles-img{width:100%;display:block;border-radius:17px 17px 0 0;max-height:550px;object-fit:cover;}
+.world-build-prompt{background:linear-gradient(135deg,rgba(64,196,255,0.08),rgba(124,77,255,0.06));border:0.5px solid rgba(64,196,255,0.2);border-radius:0 0 17px 17px;padding:24px;text-align:center;}
+.wbp-q{font-family:"Cormorant Garamond",serif;font-size:20px;color:rgba(255,255,255,0.7);margin-bottom:6px;}
+.wbp-sub{font-size:13px;color:rgba(255,255,255,0.3);margin-bottom:20px;font-weight:300;}
+.wbp-btns{display:flex;gap:12px;justify-content:center;}
+.voice-presets{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:18px;}
+.vp{background:rgba(255,255,255,0.04);border:0.5px solid rgba(255,255,255,0.09);border-radius:12px;padding:12px;text-align:center;cursor:pointer;transition:all 0.18s;user-select:none;}
+.vp:hover,.vp.on{background:rgba(64,196,255,0.1);border-color:rgba(64,196,255,0.3);}
+.vp .vpi{font-size:22px;display:block;margin-bottom:5px;}
+.vp .vpn{font-size:11px;color:rgba(255,255,255,0.45);}
+.vp.on .vpn{color:#40c4ff;}
+.waveform{display:flex;align-items:center;gap:3px;height:56px;justify-content:center;margin:16px 0;}
+.wbar{width:3px;border-radius:2px;background:rgba(64,196,255,0.2);transition:height 0.08s ease;}
+.wbar.on{background:linear-gradient(to top,#7c4dff,#40c4ff);}
+.range-row{display:flex;align-items:center;gap:12px;margin-bottom:12px;}
+.range-row label{font-size:11px;color:rgba(255,255,255,0.3);width:70px;flex-shrink:0;text-transform:uppercase;letter-spacing:0.07em;}
+.range-row input[type=range]{flex:1;-webkit-appearance:none;height:3px;border-radius:2px;background:rgba(255,255,255,0.1);outline:none;cursor:pointer;}
+.range-row input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:14px;height:14px;border-radius:50%;background:#40c4ff;cursor:pointer;}
+.range-val{font-size:11px;color:rgba(64,196,255,0.6);width:30px;text-align:right;}
+.rec-btn{display:flex;align-items:center;gap:8px;background:rgba(255,80,80,0.08);border:0.5px solid rgba(255,80,80,0.22);color:rgba(255,120,120,0.8);border-radius:10px;padding:11px 20px;font-size:13px;cursor:pointer;font-family:"DM Sans",sans-serif;transition:all 0.2s;}
+.rec-btn.recording{background:rgba(255,80,80,0.2);border-color:rgba(255,80,80,0.5);color:#ff5555;}
+.rec-dot{width:8px;height:8px;border-radius:50%;background:#ff5555;flex-shrink:0;}
+.rec-btn.recording .rec-dot{animation:pulse 0.8s ease-in-out infinite;}
+.ez-layout{display:grid;grid-template-columns:1fr 280px;gap:16px;}
+.canvas-wrap{background:rgba(0,0,0,0.5);border:0.5px solid rgba(255,255,255,0.08);border-radius:18px;overflow:hidden;}
+.canvas-toolbar{display:flex;gap:6px;padding:12px 16px;border-bottom:0.5px solid rgba(255,255,255,0.06);flex-wrap:wrap;background:rgba(0,0,0,0.2);}
+.tb-btn{background:rgba(255,255,255,0.05);border:0.5px solid rgba(255,255,255,0.09);color:rgba(255,255,255,0.45);padding:7px 13px;border-radius:8px;font-size:12px;cursor:pointer;font-family:"DM Sans",sans-serif;transition:all 0.15s;white-space:nowrap;}
+.tb-btn:hover,.tb-btn.active{background:rgba(255,196,77,0.1);border-color:rgba(255,196,77,0.28);color:#ffc44d;}
+#ez-canvas{display:block;max-width:100%;cursor:crosshair;}
+.canvas-ph{height:350px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;color:rgba(255,255,255,0.18);}
+.ph-icon{font-size:52px;opacity:0.35;}
+.ez-side{display:flex;flex-direction:column;gap:12px;}
+.adj-panel{background:rgba(255,255,255,0.03);border:0.5px solid rgba(255,255,255,0.08);border-radius:14px;padding:16px;}
+.adj-title{font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.28);margin-bottom:14px;}
+.adj-row{display:flex;flex-direction:column;gap:5px;margin-bottom:11px;}
+.adj-row label{font-size:11px;color:rgba(255,255,255,0.38);display:flex;justify-content:space-between;}
+.adj-row input[type=range]{width:100%;-webkit-appearance:none;height:3px;border-radius:2px;background:rgba(255,255,255,0.1);outline:none;cursor:pointer;}
+.adj-row input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:14px;height:14px;border-radius:50%;background:#ffc44d;cursor:pointer;}
+.filter-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;}
+.flt-btn{background:rgba(255,255,255,0.03);border:0.5px solid rgba(255,255,255,0.08);border-radius:8px;padding:8px 4px;font-size:11px;color:rgba(255,255,255,0.4);cursor:pointer;text-align:center;transition:all 0.15s;font-family:"DM Sans",sans-serif;}
+.flt-btn:hover,.flt-btn.active{background:rgba(255,196,77,0.1);border-color:rgba(255,196,77,0.28);color:#ffc44d;}
+#ez-file{display:none;}
+.esus-layout{display:grid;grid-template-columns:60px 1fr 220px;gap:12px;}
+.esus-tools{background:rgba(255,255,255,0.03);border:0.5px solid rgba(255,255,255,0.08);border-radius:14px;padding:10px;display:flex;flex-direction:column;gap:7px;align-items:center;}
+.esus-tool{width:40px;height:40px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:17px;cursor:pointer;transition:all 0.15s;border:0.5px solid transparent;background:rgba(255,255,255,0.03);}
+.esus-tool:hover,.esus-tool.active{background:rgba(124,77,255,0.15);border-color:rgba(124,77,255,0.35);}
+.esus-div{width:30px;height:0.5px;background:rgba(255,255,255,0.08);margin:3px 0;}
+.esus-canvas-wrap{background:rgba(255,255,255,0.02);border:0.5px solid rgba(255,255,255,0.08);border-radius:14px;overflow:hidden;}
+#esus-canvas{display:block;cursor:crosshair;background:#fff;}
+.esus-side{display:flex;flex-direction:column;gap:10px;}
+.color-sec{background:rgba(255,255,255,0.03);border:0.5px solid rgba(255,255,255,0.08);border-radius:14px;padding:14px;}
+.color-title{font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.28);margin-bottom:12px;}
+.swatches{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-bottom:10px;}
+.sw-dot{width:100%;aspect-ratio:1;border-radius:6px;cursor:pointer;transition:transform 0.15s;border:1.5px solid transparent;}
+.sw-dot:hover{transform:scale(1.15);}
+.sw-dot.active{border-color:#fff;}
+.brush-sec{background:rgba(255,255,255,0.03);border:0.5px solid rgba(255,255,255,0.08);border-radius:14px;padding:14px;}
+.brush-title{font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.28);margin-bottom:12px;}
+.brush-sizes{display:flex;gap:8px;align-items:center;margin-bottom:12px;flex-wrap:wrap;}
+.bsz{border-radius:50%;background:rgba(124,77,255,0.4);cursor:pointer;border:1.5px solid transparent;transition:all 0.15s;flex-shrink:0;}
+.bsz.active{border-color:#b39ddb;background:rgba(124,77,255,0.7);}
+.ai-draw-sec{background:rgba(124,77,255,0.06);border:0.5px solid rgba(124,77,255,0.2);border-radius:14px;padding:14px;}
+.ai-draw-title{font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(124,77,255,0.6);margin-bottom:10px;}
+.music-filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:22px;}
+.mf{background:rgba(255,255,255,0.04);border:0.5px solid rgba(255,255,255,0.09);border-radius:999px;padding:7px 16px;font-size:12px;color:rgba(255,255,255,0.42);cursor:pointer;transition:all 0.15s;user-select:none;}
+.mf.on{background:rgba(76,175,130,0.1);border-color:rgba(76,175,130,0.3);color:#4caf82;}
+.track-list{display:flex;flex-direction:column;gap:10px;}
+.track{background:rgba(255,255,255,0.03);border:0.5px solid rgba(255,255,255,0.08);border-radius:14px;padding:16px 20px;display:flex;align-items:center;gap:16px;transition:all 0.2s;}
+.track:hover{border-color:rgba(76,175,130,0.2);}
+.track-play{width:38px;height:38px;border-radius:50%;border:0.5px solid rgba(76,175,130,0.3);background:rgba(76,175,130,0.08);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:13px;color:#4caf82;transition:all 0.2s;flex-shrink:0;}
+.track-play:hover{background:rgba(76,175,130,0.18);}
+.track-play.playing{background:rgba(76,175,130,0.2);border-color:rgba(76,175,130,0.5);}
+.track-info{flex:1;min-width:0;}
+.track-name{font-size:14px;font-weight:500;color:rgba(255,255,255,0.82);}
+.track-meta{font-size:12px;color:rgba(255,255,255,0.3);margin-top:2px;}
+.track-wave{flex:1;height:28px;display:flex;align-items:center;gap:2px;opacity:0.4;}
+.tw{width:3px;border-radius:2px;background:rgba(76,175,130,0.6);}
+.track-dur{font-size:12px;color:rgba(255,255,255,0.25);width:36px;text-align:right;}
+.track-add{background:rgba(76,175,130,0.09);border:0.5px solid rgba(76,175,130,0.22);color:#4caf82;border-radius:8px;padding:7px 14px;font-size:12px;cursor:pointer;font-family:"DM Sans",sans-serif;transition:all 0.15s;white-space:nowrap;}
+.track-add:hover{background:rgba(76,175,130,0.2);}
+.plans{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-bottom:50px;}
+.plan{background:rgba(255,255,255,0.03);border:0.5px solid rgba(255,255,255,0.08);border-radius:24px;padding:36px 28px;position:relative;transition:transform 0.3s;}
+.plan:hover{transform:translateY(-5px);}
+.plan.feat{border:1.5px solid rgba(224,64,251,0.4);background:rgba(224,64,251,0.04);transform:translateY(-10px);}
+.plan.feat:hover{transform:translateY(-14px);}
+.pop-badge{display:inline-block;font-size:10px;font-weight:600;text-transform:uppercase;background:linear-gradient(135deg,#e040fb,#7c4dff);color:#fff;border-radius:999px;padding:4px 14px;margin-bottom:18px;letter-spacing:0.08em;}
+.plan-name{font-family:"Great Vibes",cursive;font-size:42px;line-height:1;margin-bottom:6px;}
+.pn-free{color:rgba(255,255,255,0.6);}
+.pn-cr{background:linear-gradient(135deg,#e040fb,#40c4ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.pn-st{background:linear-gradient(135deg,#ffc44d,#ff8c42);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.plan-tag{font-size:12px;color:rgba(255,255,255,0.28);margin-bottom:24px;font-weight:300;}
+.price-row{display:flex;align-items:baseline;gap:3px;margin-bottom:24px;}
+.pr-cur{font-size:16px;color:rgba(255,255,255,0.4);font-weight:300;}
+.pr-amt{font-size:52px;font-weight:200;color:#fff;line-height:1;}
+.pr-per{font-size:13px;color:rgba(255,255,255,0.25);font-weight:300;}
+.plan-div{height:0.5px;background:rgba(255,255,255,0.07);margin:20px 0;}
+.feat-list{list-style:none;display:flex;flex-direction:column;gap:11px;margin-bottom:28px;}
+.feat-list li{display:flex;align-items:flex-start;gap:9px;font-size:13px;color:rgba(255,255,255,0.5);font-weight:300;line-height:1.4;}
+.feat-list li.dim{color:rgba(255,255,255,0.2);}
+.ck{flex-shrink:0;font-size:12px;margin-top:1px;}
+.ck.y{color:#4caf82;}.ck.n{color:rgba(255,255,255,0.15);}
+.plan-btn{width:100%;padding:14px;border-radius:12px;font-family:"DM Sans",sans-serif;font-size:14px;font-weight:500;cursor:pointer;transition:all 0.25s;border:none;}
+.pb-free{background:rgba(255,255,255,0.06);border:0.5px solid rgba(255,255,255,0.12);color:rgba(255,255,255,0.55);}
+.pb-free:hover{background:rgba(255,255,255,0.1);color:#fff;}
+.pb-cr{background:linear-gradient(135deg,#e040fb,#7c4dff);color:#fff;box-shadow:0 0 25px rgba(224,64,251,0.25);}
+.pb-cr:hover{box-shadow:0 0 40px rgba(224,64,251,0.45);}
+.pb-st{background:linear-gradient(135deg,#ffc44d,#ff8c42);color:#1a0800;}
+.pb-st:hover{box-shadow:0 0 30px rgba(255,196,77,0.3);}
+.auth-wrap{max-width:440px;margin:0 auto;}
+.auth-card{background:rgba(255,255,255,0.03);border:0.5px solid rgba(255,255,255,0.08);border-radius:22px;padding:40px;}
+.auth-logo{font-family:"Great Vibes",cursive;font-size:42px;background:linear-gradient(135deg,#e040fb,#40c4ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;text-align:center;display:block;margin-bottom:6px;}
+.auth-sub{text-align:center;font-size:13px;color:rgba(255,255,255,0.3);margin-bottom:28px;}
+.auth-input{width:100%;background:rgba(255,255,255,0.05);border:0.5px solid rgba(255,255,255,0.1);border-radius:11px;padding:13px 16px;color:#fff;font-family:"DM Sans",sans-serif;font-size:14px;outline:none;margin-bottom:12px;transition:border-color 0.2s;}
+.auth-input:focus{border-color:rgba(224,64,251,0.45);}
+.auth-input::placeholder{color:rgba(255,255,255,0.18);}
+.auth-btn{width:100%;padding:14px;border-radius:11px;border:none;background:linear-gradient(135deg,#e040fb,#7c4dff);color:#fff;font-family:"DM Sans",sans-serif;font-size:15px;font-weight:500;cursor:pointer;transition:all 0.25s;margin-top:4px;box-shadow:0 0 28px rgba(224,64,251,0.25);}
+.auth-btn:hover{transform:translateY(-2px);box-shadow:0 0 45px rgba(224,64,251,0.4);}
+.auth-switch{text-align:center;margin-top:18px;font-size:13px;color:rgba(255,255,255,0.3);}
+.auth-switch span{color:#e040fb;cursor:pointer;}
+.auth-err{background:rgba(255,80,80,0.07);border:0.5px solid rgba(255,80,80,0.2);border-radius:8px;padding:10px 14px;font-size:13px;color:rgba(255,120,120,0.8);margin-bottom:12px;display:none;}
+.auth-err.show{display:block;}
+.dash-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:22px;}
+.ds{background:rgba(255,255,255,0.03);border:0.5px solid rgba(255,255,255,0.07);border-radius:14px;padding:20px;}
+.ds-lbl{font-size:10px;color:rgba(255,255,255,0.28);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:8px;}
+.ds-val{font-size:32px;font-weight:300;color:#fff;}
+.ds-sub{font-size:11px;color:rgba(64,196,255,0.45);margin-top:3px;}
+.comm-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;}
+.cc{background:rgba(255,255,255,0.03);border:0.5px solid rgba(255,255,255,0.08);border-radius:16px;overflow:hidden;transition:all 0.25s;cursor:pointer;}
+.cc:hover{transform:translateY(-3px);border-color:rgba(224,64,251,0.2);}
+.cc-prev{height:140px;display:flex;align-items:center;justify-content:center;font-size:44px;}
+.cc-body{padding:16px;}
+.cc-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;}
+.cc-t{font-size:14px;font-weight:500;color:#fff;}
+.cc-a{font-size:12px;color:rgba(255,255,255,0.3);margin-top:2px;}
+.cc-badge{font-size:10px;padding:3px 9px;border-radius:6px;font-weight:500;flex-shrink:0;}
+.cc-foot{display:flex;gap:16px;margin-top:10px;}
+.cc-stat{font-size:12px;color:rgba(255,255,255,0.28);}
+.upload-zone{border:1px dashed rgba(255,255,255,0.12);border-radius:16px;padding:40px;text-align:center;cursor:pointer;transition:all 0.2s;margin-bottom:20px;}
+.upload-zone:hover{border-color:rgba(224,64,251,0.3);background:rgba(224,64,251,0.03);}
+.upload-zone p{font-size:14px;color:rgba(255,255,255,0.35);margin-top:10px;}
+.spotlight-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+.sp-card{background:rgba(255,255,255,0.03);border:0.5px solid rgba(255,255,255,0.08);border-radius:18px;padding:28px;text-align:center;transition:all 0.25s;cursor:pointer;}
+.sp-card:hover{transform:translateY(-4px);border-color:rgba(224,64,251,0.2);}
+.sp-av{width:70px;height:70px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:26px;margin:0 auto 14px;}
+.sp-name{font-size:15px;font-weight:500;color:#fff;margin-bottom:3px;}
+.sp-role{font-size:12px;color:rgba(255,255,255,0.32);margin-bottom:14px;}
+.sp-stats{display:flex;justify-content:center;gap:20px;}
+.sp-stat strong{color:rgba(255,255,255,0.68);display:block;font-size:16px;font-weight:400;}
+.sp-stat{font-size:12px;color:rgba(255,255,255,0.25);}
+.live-badge{display:inline-flex;align-items:center;gap:6px;font-size:11px;background:rgba(255,50,50,0.08);color:#ff7777;border:0.5px solid rgba(255,50,50,0.22);border-radius:999px;padding:5px 14px;margin-bottom:22px;}
+.feed{display:flex;flex-direction:column;gap:10px;}
+.fi{display:flex;align-items:center;gap:14px;background:rgba(255,255,255,0.03);border:0.5px solid rgba(255,255,255,0.08);border-radius:11px;padding:14px 18px;animation:fadeUp 0.4s ease;}
+.fi-icon{width:36px;height:36px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;}
+.fi-txt{flex:1;font-size:13px;color:rgba(255,255,255,0.55);}
+.fi-txt strong{color:rgba(255,255,255,0.82);}
+.fi-time{font-size:11px;color:rgba(255,255,255,0.2);}
+.vl{display:flex;flex-direction:column;gap:10px;margin-top:18px;}
+.vr{background:rgba(255,255,255,0.03);border:0.5px solid rgba(255,255,255,0.08);border-radius:11px;padding:14px 18px;display:flex;align-items:flex-start;gap:12px;}
+.vtag{font-size:10px;padding:3px 9px;border-radius:6px;white-space:nowrap;flex-shrink:0;margin-top:2px;font-weight:500;}
+.vt{font-size:13px;font-weight:500;color:rgba(255,255,255,0.78);margin-bottom:3px;}
+.vb{font-size:13px;color:rgba(255,255,255,0.38);line-height:1.5;}
+.mag-grid{display:grid;grid-template-columns:2fr 1fr;gap:16px;margin-bottom:16px;}
+.mag-feat{background:rgba(255,255,255,0.03);border:0.5px solid rgba(255,255,255,0.08);border-radius:18px;overflow:hidden;cursor:pointer;transition:all 0.25s;}
+.mag-feat:hover{transform:translateY(-3px);}
+.mag-img{height:240px;display:flex;align-items:center;justify-content:center;font-size:50px;}
+.mag-body{padding:22px;}
+.mag-cat{font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:#e040fb;margin-bottom:8px;}
+.mag-title{font-family:"Cormorant Garamond",serif;font-size:21px;color:#fff;line-height:1.3;margin-bottom:8px;}
+.mag-excerpt{font-size:13px;color:rgba(255,255,255,0.36);line-height:1.6;font-weight:300;}
+.mag-side{display:flex;flex-direction:column;gap:10px;}
+.mag-sm{background:rgba(255,255,255,0.03);border:0.5px solid rgba(255,255,255,0.08);border-radius:14px;overflow:hidden;cursor:pointer;transition:all 0.2s;}
+.mag-sm:hover{transform:translateY(-2px);}
+.mag-sm-img{height:90px;display:flex;align-items:center;justify-content:center;font-size:28px;}
+.mag-sm-body{padding:12px 14px;}
+.mag-sm-cat{font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:rgba(224,64,251,0.55);margin-bottom:5px;}
+.mag-sm-title{font-family:"Cormorant Garamond",serif;font-size:13px;color:rgba(255,255,255,0.75);line-height:1.4;}
+.profile-card{background:rgba(255,255,255,0.03);border:0.5px solid rgba(255,255,255,0.08);border-radius:22px;padding:36px;text-align:center;}
+.profile-av{width:90px;height:90px;border-radius:50%;background:linear-gradient(135deg,#e040fb,#7c4dff);display:flex;align-items:center;justify-content:center;font-size:34px;margin:0 auto 16px;font-weight:600;color:#fff;border:2px solid rgba(224,64,251,0.4);}
+.profile-name{font-family:"Great Vibes",cursive;font-size:36px;background:linear-gradient(135deg,#e040fb,#40c4ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.profile-email{font-size:13px;color:rgba(255,255,255,0.3);margin-top:4px;}
+.profile-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:28px;}
+.pstat{background:rgba(255,255,255,0.03);border:0.5px solid rgba(255,255,255,0.07);border-radius:12px;padding:16px;text-align:center;}
+.pstat-num{font-size:28px;font-weight:300;color:#fff;}
+.pstat-lbl{font-size:11px;color:rgba(255,255,255,0.28);margin-top:4px;letter-spacing:0.07em;text-transform:uppercase;}
+footer{text-align:center;padding:70px 40px 50px;border-top:0.5px solid rgba(255,255,255,0.05);}
+.footer-logo{font-family:"Great Vibes",cursive;font-size:44px;background:linear-gradient(135deg,#e040fb,#40c4ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;display:block;margin-bottom:14px;}
+.footer-links{display:flex;gap:24px;justify-content:center;flex-wrap:wrap;margin-bottom:22px;}
+.footer-links a{font-size:12px;color:rgba(255,255,255,0.26);text-decoration:none;letter-spacing:0.06em;transition:color 0.2s;cursor:pointer;}
+.footer-links a:hover{color:rgba(255,255,255,0.65);}
+footer small{font-size:11px;color:rgba(255,255,255,0.16);}
+@media(max-width:768px){nav{padding:10px 16px;flex-wrap:wrap;gap:8px;}.nav-center{flex-wrap:wrap;}.sw{padding:32px 18px;}.tools-grid,.plans,.spotlight-grid,.g2,.g3,.ez-layout,.esus-layout,.comm-grid,.mag-grid{grid-template-columns:1fr;}.tc.wide{grid-column:span 1;}.stats-inner,.dash-stats{grid-template-columns:repeat(2,1fr);}.style-grid{grid-template-columns:repeat(3,1fr);}.voice-presets{grid-template-columns:repeat(2,1fr);}.hero-title{font-size:clamp(58px,15vw,100px);}}
+</style>
+</head>
+<body>
+<div class="cursor" id="cur"></div>
+<div class="cursor-ring" id="curRing"></div>
+<div id="splash">
+  <div class="splash-logo">Aureate Design Studios</div>
+  <div class="splash-tag">Where Ideas Become Cinema</div>
+  <div class="splash-bar"><div class="splash-fill"></div></div>
+</div>
+<div class="bg-layer"></div>
+<div class="orb o1"></div><div class="orb o2"></div><div class="orb o3"></div>
+<div class="grain"></div>
+<div class="shell">
+<nav>
+  <div class="nav-logo" onclick="go('home')">Aureate Design Studios</div>
+  <div class="nav-center">
+    <div class="nav-item">
+      <button class="nav-btn">Create <span class="nav-arr">&#9660;</span></button>
+      <div class="dropdown">
+        <div class="dd-item" onclick="go('exodus')"><span class="dd-icon">&#128444;</span>Exodus Beta 1<span class="dd-badge">LIVE</span></div>
+        <div class="dd-item" onclick="go('chronicles')"><span class="dd-icon">&#127756;</span>Chronicles Beta 1<span class="dd-badge">LIVE</span></div>
+        <div class="dd-item" onclick="go('genesis')"><span class="dd-icon">&#127902;</span>Genesis Beta 1<span class="dd-badge" style="background:rgba(124,77,255,0.12);color:#b39ddb">SOON</span></div>
+        <div class="dd-div"></div>
+        <div class="dd-item" onclick="go('editor')"><span class="dd-icon">&#9881;</span>Film Editor</div>
+      </div>
+    </div>
+    <div class="nav-item">
+      <button class="nav-btn">Studio <span class="nav-arr">&#9660;</span></button>
+      <div class="dropdown">
+        <div class="dd-item" onclick="go('ezequiel')"><span class="dd-icon">&#127912;</span>Ezequiel Beta 1<span class="dd-badge">LIVE</span></div>
+        <div class="dd-item" onclick="go('esus')"><span class="dd-icon">&#9999;</span>Esus Beta 1<span class="dd-badge">LIVE</span></div>
+        <div class="dd-item" onclick="go('voice')"><span class="dd-icon">&#127897;</span>Voice Over Studio<span class="dd-badge">LIVE</span></div>
+        <div class="dd-item" onclick="go('music')"><span class="dd-icon">&#127925;</span>Music Studio<span class="dd-badge gr">NEW</span></div>
+        <div class="dd-item" onclick="go('vault')"><span class="dd-icon">&#128452;</span>Prompt Vault</div>
+      </div>
+    </div>
+    <div class="nav-item">
+      <button class="nav-btn">Discover <span class="nav-arr">&#9660;</span></button>
+      <div class="dropdown">
+        <div class="dd-item" onclick="go('community')"><span class="dd-icon">&#10024;</span>Community Gallery</div>
+        <div class="dd-item" onclick="go('remix')"><span class="dd-icon">&#128256;</span>Remix Lab</div>
+        <div class="dd-item" onclick="go('spotlight')"><span class="dd-icon">&#11088;</span>Creator Spotlight</div>
+        <div class="dd-item" onclick="go('livefeed')"><span class="dd-icon">&#128225;</span>Live Feed</div>
+      </div>
+    </div>
+    <div class="nav-item">
+      <button class="nav-btn">Learn <span class="nav-arr">&#9660;</span></button>
+      <div class="dropdown">
+        <div class="dd-item" onclick="go('magazine')"><span class="dd-icon">&#128214;</span>Aureate Magazine</div>
+        <div class="dd-item" onclick="go('tutorials')"><span class="dd-icon">&#127891;</span>Tutorials</div>
+        <div class="dd-item" onclick="go('prompts')"><span class="dd-icon">&#128161;</span>Prompt Guides</div>
+      </div>
+    </div>
+    <div class="nav-item">
+      <button class="nav-btn">Account <span class="nav-arr">&#9660;</span></button>
+      <div class="dropdown">
+        <div class="dd-item" onclick="go('dashboard')"><span class="dd-icon">&#128202;</span>Dashboard</div>
+        <div class="dd-item" onclick="go('subscriptions')"><span class="dd-icon">&#128142;</span>Subscriptions</div>
+        <div class="dd-div"></div>
+        <div class="dd-item" id="dd-login-item" onclick="go('login')"><span class="dd-icon">&#128274;</span>Sign In</div>
+        <div class="dd-item" id="dd-signup-item" onclick="go('signup')"><span class="dd-icon">&#10022;</span>Create Account</div>
+        <div class="dd-item" id="dd-logout-item" onclick="doLogout()" style="display:none"><span class="dd-icon">&#8594;</span>Sign Out</div>
+      </div>
+    </div>
+  </div>
+  <div class="nav-right" id="nav-right">
+    <button class="nav-login" onclick="go('login')">Sign in</button>
+    <button class="nav-cta" onclick="go('signup')">Start free &#10022;</button>
+  </div>
+  <div class="nav-user" id="nav-user">
+    <div class="nav-avatar" id="nav-avatar" onclick="go('account')"></div>
+    <span class="nav-username" id="nav-uname"></span>
+    <button class="nav-login" onclick="doLogout()">Sign out</button>
+  </div>
+</nav>
+<!-- HOME -->
+<div id="home" class="page active">
+  <div class="hero-section">
+    <div class="film-strip top"></div>
+    <div class="hero-badge"><span class="ldot"></span>Aureate Design Studios &mdash; Now Live</div>
+    <div class="hero-title">Aureate Design Studios</div>
+    <div class="hero-sub">Where Ideas Become Cinema</div>
+    <p class="hero-desc">The professional AI creative platform for filmmakers, directors and visual artists. Everything you need to create cinematic content in one place.</p>
+    <div class="hero-btns">
+      <button class="btn-p" onclick="go('exodus')">Open Exodus Beta 1 &#10022;</button>
+      <button class="btn-g" onclick="go('chronicles')">Explore Chronicles</button>
+    </div>
+    <div class="film-strip bottom"></div>
+  </div>
+  <div class="ticker-wrap"><div class="ticker" id="tkr"></div></div>
+  <div class="tools-section">
+    <div class="section-title">The Full Suite</div>
+    <div class="tools-grid">
+      <div class="tc wide tc-mg" onclick="go('exodus')"><div class="tc-num">01 &mdash; Image Generation</div><div class="tc-icon">&#128444;</div><div><span class="tc-name">Exodus Beta 1</span><span class="tc-beta beta-mg">LIVE</span></div><p class="tc-desc">One prompt. One powerful, accurate cinematic image. Our flagship AI image generator powered by Flux. Describe your vision and Exodus brings it to life.</p><div class="tc-arr">&#8599;</div></div>
+      <div class="tc tc-cy" onclick="go('chronicles')"><div class="tc-num">02 &mdash; World Generation</div><div class="tc-icon">&#127756;</div><div><span class="tc-name">Chronicles Beta 1</span><span class="tc-beta beta-cy">LIVE</span></div><p class="tc-desc">Where would you like to go? Type any world and Chronicles generates it then offers to build it into a full cinematic scene.</p><div class="tc-arr">&#8599;</div></div>
+      <div class="tc tc-go" onclick="go('ezequiel')"><div class="tc-num">03 &mdash; Photo Editing</div><div class="tc-icon">&#127912;</div><div><span class="tc-name">Ezequiel Beta 1</span><span class="tc-beta beta-go">LIVE</span></div><p class="tc-desc">12 professional Photoshop-grade tools. Upload any image then adjust, filter, paint and export at full resolution.</p><div class="tc-arr">&#8599;</div></div>
+      <div class="tc tc-vi" onclick="go('esus')"><div class="tc-num">04 &mdash; Digital Painting</div><div class="tc-icon">&#9999;</div><div><span class="tc-name">Esus Beta 1</span><span class="tc-beta beta-vi">LIVE</span></div><p class="tc-desc">Procreate-style canvas. All brush types, sizes and textures. Draw manually or let AI generate art directly onto your canvas.</p><div class="tc-arr">&#8599;</div></div>
+      <div class="tc tc-gr" onclick="go('voice')"><div class="tc-num">05 &mdash; Voice</div><div class="tc-icon">&#127897;</div><div><span class="tc-name">Voice Over Studio</span><span class="tc-beta beta-gr">LIVE</span></div><p class="tc-desc">Record your voice, upload audio, then transform pitch, tone, depth and range for cinematic results.</p><div class="tc-arr">&#8599;</div></div>
+      <div class="tc tc-gr" onclick="go('music')"><div class="tc-num">06 &mdash; Music</div><div class="tc-icon">&#127925;</div><div><span class="tc-name">Music Studio</span><span class="tc-beta beta-gr">NEW</span></div><p class="tc-desc">Professional music library for film and TV. Browse by genre, preview and add tracks to your Film Editor timeline.</p><div class="tc-arr">&#8599;</div></div>
+      <div class="tc tc-vi" onclick="go('genesis')"><div class="tc-num">07 &mdash; Video Generation</div><div class="tc-icon">&#127902;</div><div><span class="tc-name">Genesis Beta 1</span><span class="tc-beta beta-vi">SOON</span></div><p class="tc-desc">Full AI video generation. Text-to-video, scene sequences, cinematic storytelling. Launching very soon.</p><div class="tc-arr">&#8599;</div></div>
+    </div>
+  </div>
+  <div class="stats-section">
+    <div class="stats-inner">
+      <div><div class="stat-num">2.4M</div><div class="stat-lbl">Creations Made</div></div>
+      <div><div class="stat-num">84K</div><div class="stat-lbl">Active Creators</div></div>
+      <div><div class="stat-num">99.9%</div><div class="stat-lbl">Uptime</div></div>
+      <div><div class="stat-num">4K</div><div class="stat-lbl">Max Resolution</div></div>
+    </div>
+  </div>
+  <footer>
+    <span class="footer-logo">Aureate Design Studios</span>
+    <div class="footer-links">
+      <a onclick="go('magazine')">Magazine</a><a onclick="go('tutorials')">Tutorials</a>
+      <a onclick="go('community')">Community</a><a onclick="go('subscriptions')">Pricing</a>
+      <a href="https://instagram.com/aureatedesignstudios" target="_blank">Instagram</a>
+      <a>Privacy</a><a>Terms</a>
+    </div>
+    <small>&copy; 2025 Aureate Design Studios &mdash; aureatedesignstudios.com</small>
+  </footer>
+</div>
+
+<!-- EXODUS BETA 1 -->
+<div id="exodus" class="page">
+  <div class="sw">
+    <span class="pg-tag">Create &mdash; Image Generation</span>
+    <div class="exodus-hero">
+      <div class="exodus-name">Exodus Beta 1</div>
+      <div class="exodus-tag">One prompt. One powerful image. No compromises.</div>
+    </div>
+    <div class="panel">
+      <div class="panel-title">Describe your vision</div>
+      <textarea class="ti" id="ex-prompt" style="min-height:110px" placeholder="Be specific &mdash; describe the subject, setting, mood, lighting and style. The more detail, the more powerful the result..."></textarea>
+      <div style="margin:16px 0 8px;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.28)">Visual Style</div>
+      <div class="style-grid">
+        <div class="sty on" onclick="exStyle(this,'cinematic')"><span class="si">&#127902;</span><span class="sn">Cinematic</span></div>
+        <div class="sty" onclick="exStyle(this,'photorealistic')"><span class="si">&#128247;</span><span class="sn">Photorealism</span></div>
+        <div class="sty" onclick="exStyle(this,'concept art')"><span class="si">&#127912;</span><span class="sn">Concept Art</span></div>
+        <div class="sty" onclick="exStyle(this,'anime')"><span class="si">&#10024;</span><span class="sn">Anime</span></div>
+        <div class="sty" onclick="exStyle(this,'oil painting')"><span class="si">&#127775;</span><span class="sn">Oil Paint</span></div>
+        <div class="sty" onclick="exStyle(this,'dark fantasy')"><span class="si">&#128480;</span><span class="sn">Dark Fantasy</span></div>
+        <div class="sty" onclick="exStyle(this,'watercolor')"><span class="si">&#127756;</span><span class="sn">Watercolor</span></div>
+        <div class="sty" onclick="exStyle(this,'3D render')"><span class="si">&#129680;</span><span class="sn">3D Render</span></div>
+        <div class="sty" onclick="exStyle(this,'noir film')"><span class="si">&#127765;</span><span class="sn">Noir</span></div>
+        <div class="sty" onclick="exStyle(this,'surrealism')"><span class="si">&#129349;</span><span class="sn">Surrealism</span></div>
+      </div>
+      <div class="g3" style="margin-top:16px">
+        <div class="fg"><label>Aspect Ratio</label>
+          <select class="ti" id="ex-size"><option value="1024x1024">Square 1:1</option><option value="1344x768">Widescreen 16:9</option><option value="768x1344">Portrait 9:16</option><option value="1216x832">Standard 3:2</option></select></div>
+        <div class="fg"><label>AI Model</label>
+          <select class="ti" id="ex-model"><option value="flux">Flux (Best Quality)</option><option value="flux-realism">Flux Realism</option><option value="flux-anime">Flux Anime</option><option value="flux-3d">Flux 3D</option><option value="turbo">Turbo (Fastest)</option></select></div>
+        <div class="fg"><label>Lighting</label>
+          <select class="ti" id="ex-light"><option value="">Natural</option><option value="golden hour lighting">Golden Hour</option><option value="dramatic studio lighting">Studio Dramatic</option><option value="neon lighting">Neon Glow</option><option value="moonlight">Moonlight</option><option value="backlit silhouette">Backlit</option><option value="candlelight warm">Candlelight</option></select></div>
+      </div>
+      <button class="gen-main-btn" id="ex-btn" onclick="runExodus()">&#10022; Generate with Exodus Beta 1</button>
+      <div class="status"><div class="dot g" id="ex-dot"></div><span id="ex-st">Ready &mdash; describe your vision above</span></div>
+    </div>
+    <div class="load-card" id="ex-load">
+      <div class="load-orb"></div>
+      <div class="load-txt">Exodus is creating your image...</div>
+      <div class="load-sub">High quality generation takes 8-20 seconds. Please wait.</div>
+      <div class="load-bar-wrap"><div class="load-bar" id="ex-bar"></div></div>
+    </div>
+    <div class="result-wrap" id="ex-result">
+      <div class="result-card">
+        <img id="exodus-img" src="" alt=""/>
+        <div class="result-bar">
+          <button class="run" onclick="exDownload()">&#8659; Download</button>
+          <button class="run go" onclick="exToEzequiel()">&#127912; Edit in Ezequiel</button>
+          <button class="run cy" onclick="exToEsus()">&#9999; Open in Esus</button>
+          <button class="run vi" onclick="exSaveVault()">&#128452; Save Prompt</button>
+          <button class="run" onclick="runExodus()">&#8635; Regenerate</button>
+        </div>
+        <div class="result-meta">
+          <span class="meta-t">Seed: <span id="ex-seed-v">-</span></span>
+          <span class="meta-t">Model: <span id="ex-model-v">-</span></span>
+          <span class="meta-t">Size: <span id="ex-size-v">-</span></span>
+        </div>
+      </div>
+    </div>
+    <div class="note" style="margin-top:20px"><strong>Pro tip:</strong> Try "A lone samurai standing on a cliff at golden hour, fog below, cinematic wide angle, epic fantasy" for a powerful first result.</div>
+  </div>
+</div>
+
+<!-- CHRONICLES BETA 1 -->
+<div id="chronicles" class="page">
+  <div class="sw">
+    <span class="pg-tag">Create &mdash; World Generation</span>
+    <div class="chr-intro">
+      <div class="chr-name">Chronicles Beta 1</div>
+      <div class="chr-q">Where would you like to go?</div>
+    </div>
+    <div class="panel">
+      <div class="panel-title">Describe any world, place or environment</div>
+      <div class="world-input-wrap">
+        <input type="text" id="ch-input" placeholder="A forgotten underwater city, bioluminescent coral everywhere, ancient stone temples..." onkeydown="if(event.key==='Enter')runChronicles()"/>
+        <button class="world-go-btn" onclick="runChronicles()">Generate World &#10022;</button>
+      </div>
+      <div class="chips" style="margin-top:16px">
+        <span class="chip" onclick="chSet('A sprawling cyberpunk megacity at 2am neon rain holographic billboards')">&#127750; Cyberpunk City</span>
+        <span class="chip" onclick="chSet('A misty fantasy highland kingdom ancient stone towers golden sunset')">&#127956; Fantasy Kingdom</span>
+        <span class="chip" onclick="chSet('Deep space orbital station looking down at Earth stars everywhere')">&#129680; Space Station</span>
+        <span class="chip" onclick="chSet('Ancient overgrown ruins deep jungle sunbeams through the canopy')">&#127807; Lost Ruins</span>
+        <span class="chip" onclick="chSet('Post apocalyptic desert wasteland abandoned skyscrapers sand dunes')">&#127964; Wasteland</span>
+        <span class="chip" onclick="chSet('Bioluminescent underwater civilization coral palaces glowing creatures')">&#127754; Abyssal City</span>
+      </div>
+    </div>
+    <div class="load-card" id="ch-load" style="border-color:rgba(64,196,255,0.15)">
+      <div class="load-orb" style="background:conic-gradient(#40c4ff,#7c4dff,#40c4ff)"></div>
+      <div class="load-txt">Chronicles is building your world...</div>
+      <div class="load-sub">Generating a cinematic world image. Please wait 8-20 seconds.</div>
+      <div class="load-bar-wrap"><div class="load-bar" id="ch-bar" style="background:linear-gradient(90deg,#7c4dff,#40c4ff)"></div></div>
+    </div>
+    <div class="chr-result" id="ch-result">
+      <div class="chr-img-card">
+        <img id="chronicles-img" src="" alt=""/>
+        <div class="world-build-prompt">
+          <div class="wbp-q">Would you like to build a world with this?</div>
+          <div class="wbp-sub">Expand into a full scene with atmosphere, characters and story details</div>
+          <div class="wbp-btns">
+            <button class="run cy big" onclick="worldBuildYes()">&#10003; Yes, Build My World</button>
+            <button class="run big" onclick="worldBuildNo()">&#215; Not Right Now</button>
+          </div>
+        </div>
+      </div>
+      <div id="world-builder" style="display:none;margin-top:18px">
+        <div class="panel">
+          <div class="panel-title">World Builder &mdash; Expand Your World</div>
+          <div class="g2" style="margin-bottom:14px">
+            <div class="fg"><label>Time of Day</label><select class="ti" id="wb-time"><option>Golden Hour</option><option>Midnight</option><option>Dawn</option><option>Dusk</option><option>High Noon</option></select></div>
+            <div class="fg"><label>Weather</label><select class="ti" id="wb-weather"><option>Clear</option><option>Rain</option><option>Fog</option><option>Snow</option><option>Storm</option></select></div>
+            <div class="fg"><label>Population</label><select class="ti" id="wb-pop"><option>Empty and eerie</option><option>Sparse and distant</option><option>Moderately populated</option><option>Bustling and alive</option></select></div>
+            <div class="fg"><label>Era</label><select class="ti" id="wb-era"><option>Near Future</option><option>Far Future</option><option>Present Day</option><option>Medieval</option><option>Ancient</option><option>Post-Apocalyptic</option></select></div>
+          </div>
+          <div class="fg" style="margin-bottom:14px"><label>Story Details</label><textarea class="ti" id="wb-story" placeholder="A lone survivor searching for the last signal tower. The city fell 40 years ago..."></textarea></div>
+          <button class="run cy" onclick="runWorldBuild()">&#10022; Regenerate with World Details</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- GENESIS BETA 1 -->
+<div id="genesis" class="page">
+  <div class="sw">
+    <span class="pg-tag">Create &mdash; Coming Soon</span>
+    <div class="pg-title">Genesis Beta 1</div>
+    <p class="pg-desc">Full AI video generation. Text-to-video, scene sequences, cinematic storytelling. Launching very soon.</p>
+    <div class="panel" style="text-align:center;padding:60px 40px">
+      <div style="font-size:64px;margin-bottom:20px">&#127902;</div>
+      <div style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:22px;color:rgba(255,255,255,0.5);margin-bottom:28px">Genesis Beta 1 is coming.</div>
+      <p style="font-size:14px;color:rgba(255,255,255,0.3);max-width:400px;margin:0 auto 30px;line-height:1.7;font-weight:300">Full Runway ML integration. Text-to-video. Scene builder pipeline. Cinematic quality output up to 4K.</p>
+      <button class="run big" onclick="go('signup')">Get Early Access &#10022;</button>
+    </div>
+  </div>
+</div>
+
+<!-- EZEQUIEL BETA 1 -->
+<div id="ezequiel" class="page">
+  <div class="sw" style="max-width:1200px">
+    <span class="pg-tag">Studio &mdash; Photo Editing</span>
+    <div class="pg-title">Ezequiel Beta 1</div>
+    <p class="pg-desc">Professional photo editor. Upload any image and access 12 Photoshop-grade tools.</p>
+    <div class="ez-layout">
+      <div class="canvas-wrap">
+        <div class="canvas-toolbar">
+          <button class="tb-btn active" onclick="ezTool('select',this)">&#9654; Select</button>
+          <button class="tb-btn" onclick="ezTool('crop',this)">&#9632; Crop</button>
+          <button class="tb-btn" onclick="ezTool('brush',this)">&#127812; Brush</button>
+          <button class="tb-btn" onclick="ezTool('eraser',this)">&#11036; Eraser</button>
+          <button class="tb-btn" onclick="ezTool('text',this)">T Text</button>
+          <button class="tb-btn" onclick="ezTool('heal',this)">&#10010; Heal</button>
+          <button class="tb-btn" onclick="ezFlipH()">&#8596; Flip H</button>
+          <button class="tb-btn" onclick="ezFlipV()">&#8597; Flip V</button>
+          <button class="tb-btn" onclick="ezUndo()">&#8617; Undo</button>
+          <button class="tb-btn" onclick="ezReset()">&#10227; Reset</button>
+          <button class="tb-btn" style="color:#4caf82;border-color:rgba(76,175,130,0.25)" onclick="ezExport()">&#8659; Export PNG</button>
+        </div>
+        <div id="ez-container">
+          <div class="canvas-ph" id="ez-ph">
+            <div class="ph-icon">&#127912;</div>
+            <p style="font-size:14px;color:rgba(255,255,255,0.35);margin-bottom:14px">Upload an image to start editing</p>
+            <label class="run" style="cursor:pointer;display:inline-block;margin-bottom:10px" for="ez-file">&#8679; Upload Image</label><br>
+            <button class="run cy" onclick="ezLoadLast()">Use Last Generated Image</button>
+          </div>
+          <canvas id="ez-canvas" style="display:none;max-width:100%"></canvas>
+        </div>
+        <input type="file" id="ez-file" accept="image/*" onchange="ezLoadFile(event)"/>
+      </div>
+      <div class="ez-side">
+        <div class="adj-panel">
+          <div class="adj-title">Adjustments</div>
+          <div class="adj-row"><label>Brightness <span id="bri-v">0</span></label><input type="range" min="-100" max="100" value="0" id="ez-bri" oninput="ezAdj()"/></div>
+          <div class="adj-row"><label>Contrast <span id="con-v">0</span></label><input type="range" min="-100" max="100" value="0" id="ez-con" oninput="ezAdj()"/></div>
+          <div class="adj-row"><label>Saturation <span id="sat-v">0</span></label><input type="range" min="-100" max="100" value="0" id="ez-sat" oninput="ezAdj()"/></div>
+          <div class="adj-row"><label>Hue <span id="hue-v">0</span></label><input type="range" min="-180" max="180" value="0" id="ez-hue" oninput="ezAdj()"/></div>
+          <div class="adj-row"><label>Blur <span id="blr-v">0</span></label><input type="range" min="0" max="10" value="0" id="ez-blr" oninput="ezAdj()"/></div>
+          <div class="adj-row"><label>Vignette <span id="vig-v">0</span></label><input type="range" min="0" max="100" value="0" id="ez-vig" oninput="ezAdj()"/></div>
+          <div class="adj-row"><label>Opacity <span id="opa-v">100</span>%</label><input type="range" min="10" max="100" value="100" id="ez-opa" oninput="ezAdj()"/></div>
+        </div>
+        <div class="adj-panel">
+          <div class="adj-title">Filters</div>
+          <div class="filter-grid">
+            <button class="flt-btn active" onclick="ezFlt('none',this)">None</button>
+            <button class="flt-btn" onclick="ezFlt('grayscale',this)">B&amp;W</button>
+            <button class="flt-btn" onclick="ezFlt('sepia',this)">Sepia</button>
+            <button class="flt-btn" onclick="ezFlt('invert',this)">Invert</button>
+            <button class="flt-btn" onclick="ezFlt('warm',this)">Warm</button>
+            <button class="flt-btn" onclick="ezFlt('cool',this)">Cool</button>
+            <button class="flt-btn" onclick="ezFlt('vintage',this)">Vintage</button>
+            <button class="flt-btn" onclick="ezFlt('cinema',this)">Cinema</button>
+            <button class="flt-btn" onclick="ezFlt('neon',this)">Neon</button>
+            <button class="flt-btn" onclick="ezFlt('fade',this)">Fade</button>
+            <button class="flt-btn" onclick="ezFlt('chrome',this)">Chrome</button>
+            <button class="flt-btn" onclick="ezFlt('dramatic',this)">Dramatic</button>
+          </div>
+        </div>
+        <div class="adj-panel">
+          <div class="adj-title">Brush</div>
+          <div class="adj-row"><label>Size <span id="bsz-v">20</span>px</label><input type="range" min="2" max="80" value="20" id="ez-bsz" oninput="document.getElementById('bsz-v').textContent=this.value;ezBSz=+this.value"/></div>
+          <div class="adj-row"><label>Color</label><input type="color" id="ez-bc" value="#e040fb" style="width:100%;height:36px;border-radius:8px;border:0.5px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.05);cursor:pointer;padding:3px;" oninput="ezBC=this.value"/></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ESUS BETA 1 -->
+<div id="esus" class="page">
+  <div class="sw" style="max-width:1100px">
+    <span class="pg-tag">Studio &mdash; Digital Painting</span>
+    <div class="pg-title">Esus Beta 1</div>
+    <p class="pg-desc">Your Procreate-style canvas. Draw anything manually or let AI draw for you.</p>
+    <div class="esus-layout">
+      <div class="esus-tools">
+        <div class="esus-tool active" onclick="esTool('pencil',this)" title="Pencil">&#9998;</div>
+        <div class="esus-tool" onclick="esTool('brush',this)" title="Brush">&#127812;</div>
+        <div class="esus-tool" onclick="esTool('marker',this)" title="Marker">&#128396;</div>
+        <div class="esus-tool" onclick="esTool('spray',this)" title="Spray">&#128246;</div>
+        <div class="esus-tool" onclick="esTool('watercolor',this)" title="Watercolor">&#127756;</div>
+        <div class="esus-div"></div>
+        <div class="esus-tool" onclick="esTool('eraser',this)" title="Eraser">&#11036;</div>
+        <div class="esus-tool" onclick="esFill()" title="Fill">&#127798;</div>
+        <div class="esus-div"></div>
+        <div class="esus-tool" onclick="esUndo()" title="Undo">&#8617;</div>
+        <div class="esus-tool" onclick="esClear()" title="Clear">&#128465;</div>
+        <div class="esus-div"></div>
+        <div class="esus-tool" onclick="esExport()" title="Export" style="font-size:13px">&#8659;</div>
+      </div>
+      <div class="esus-canvas-wrap">
+        <canvas id="esus-canvas" width="700" height="500"></canvas>
+      </div>
+      <div class="esus-side">
+        <div class="color-sec">
+          <div class="color-title">Color</div>
+          <div class="swatches" id="es-swatches"></div>
+          <input type="color" id="es-col" value="#000000" style="width:100%;height:34px;border-radius:8px;border:0.5px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.05);cursor:pointer;padding:2px;" oninput="esColor=this.value"/>
+        </div>
+        <div class="brush-sec">
+          <div class="brush-title">Brush Size</div>
+          <div class="brush-sizes" id="es-sizes"></div>
+          <div class="adj-row" style="margin-top:8px"><label style="font-size:11px;color:rgba(255,255,255,0.38);display:flex;justify-content:space-between">Opacity <span id="es-opa-v">100</span>%</label><input type="range" min="5" max="100" value="100" style="width:100%;-webkit-appearance:none;height:3px;border-radius:2px;background:rgba(255,255,255,0.1);outline:none;cursor:pointer;margin-top:4px" oninput="document.getElementById('es-opa-v').textContent=this.value;esOpa=this.value/100"/></div>
+        </div>
+        <div class="ai-draw-sec">
+          <div class="ai-draw-title">&#10022; AI Draw Mode</div>
+          <textarea class="ti" id="es-ai" style="min-height:70px;font-size:13px" placeholder="Describe what AI should draw on canvas..."></textarea>
+          <button class="run vi" style="width:100%;margin-top:10px" onclick="esAIDraw()">&#10022; AI Draw</button>
+        </div>
+        <label class="run cy" style="cursor:pointer;display:block;text-align:center" for="es-upload">&#8679; Upload Image</label>
+        <input type="file" id="es-upload" accept="image/*" style="display:none" onchange="esLoadImg(event)"/>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- VOICE OVER STUDIO -->
+<div id="voice" class="page">
+  <div class="sw">
+    <span class="pg-tag">Studio &mdash; Voice</span>
+    <div class="pg-title">Voice Over Studio</div>
+    <p class="pg-desc">Record your voice, upload audio, and transform it with cinematic presets.</p>
+    <div class="panel">
+      <div class="panel-title">Choose a Voice Style</div>
+      <div class="voice-presets">
+        <div class="vp on" onclick="vStyle(this,'narrator')"><span class="vpi">&#127908;</span><span class="vpn">Epic Narrator</span></div>
+        <div class="vp" onclick="vStyle(this,'villain')"><span class="vpi">&#128520;</span><span class="vpn">Villain</span></div>
+        <div class="vp" onclick="vStyle(this,'hero')"><span class="vpi">&#129354;</span><span class="vpn">Hero</span></div>
+        <div class="vp" onclick="vStyle(this,'news')"><span class="vpi">&#127897;</span><span class="vpn">News Anchor</span></div>
+        <div class="vp" onclick="vStyle(this,'whisper')"><span class="vpi">&#129311;</span><span class="vpn">Mysterious</span></div>
+        <div class="vp" onclick="vStyle(this,'excited')"><span class="vpi">&#127775;</span><span class="vpn">Excited</span></div>
+        <div class="vp" onclick="vStyle(this,'elder')"><span class="vpi">&#129497;</span><span class="vpn">Elder Wise</span></div>
+        <div class="vp" onclick="vStyle(this,'custom')"><span class="vpi">&#9881;</span><span class="vpn">Custom</span></div>
+      </div>
+      <textarea class="ti" id="v-text" style="min-height:120px" placeholder="In a world where the last city stands between humanity and oblivion, one filmmaker dared to dream in cinema..."></textarea>
+      <div class="row" style="margin-top:12px">
+        <button class="run cy" onclick="vSpeak()">&#9654; Speak</button>
+        <button class="run" style="background:rgba(255,80,80,0.1);color:#ff7777;border-color:rgba(255,80,80,0.25)" onclick="vStop()">&#9632; Stop</button>
+        <button class="run go" onclick="vPause()">&#9646;&#9646; Pause/Resume</button>
+      </div>
+      <div class="waveform" id="vwave"></div>
+      <div id="v-status" style="font-size:12px;color:rgba(255,255,255,0.28);text-align:center">Select a style and press Speak</div>
+    </div>
+    <div id="v-custom-panel" class="panel" style="display:none">
+      <div class="panel-title">Custom Voice Controls</div>
+      <div class="fg" style="margin-bottom:12px"><label>Voice</label><select class="ti" id="v-select"></select></div>
+      <div class="range-row"><label>Pitch</label><input type="range" min="0.5" max="2" step="0.05" value="1" id="v-pitch" oninput="document.getElementById('v-pitch-v').textContent=parseFloat(this.value).toFixed(1)"/><span class="range-val" id="v-pitch-v">1.0</span></div>
+      <div class="range-row"><label>Speed</label><input type="range" min="0.4" max="2" step="0.05" value="1" id="v-rate" oninput="document.getElementById('v-rate-v').textContent=parseFloat(this.value).toFixed(1)"/><span class="range-val" id="v-rate-v">1.0</span></div>
+      <div class="range-row"><label>Volume</label><input type="range" min="0" max="1" step="0.05" value="1" id="v-vol" oninput="document.getElementById('v-vol-v').textContent=parseFloat(this.value).toFixed(1)"/><span class="range-val" id="v-vol-v">1.0</span></div>
+    </div>
+    <div class="panel">
+      <div class="panel-title">Record Your Own Voice</div>
+      <p style="font-size:13px;color:rgba(255,255,255,0.35);margin-bottom:16px;line-height:1.6;font-weight:300">Record directly from your microphone then download for use in your productions.</p>
+      <div class="row">
+        <button class="rec-btn" id="rec-btn" onclick="toggleRec()"><span class="rec-dot"></span><span id="rec-lbl">Start Recording</span></button>
+        <button class="run cy" id="play-rec-btn" onclick="playRec()" disabled>&#9654; Play Back</button>
+        <button class="run gr" id="dl-rec-btn" onclick="dlRec()" disabled>&#8659; Download</button>
+      </div>
+      <div id="rec-status" style="font-size:12px;color:rgba(255,255,255,0.25);margin-top:8px">Ready to record</div>
+    </div>
+  </div>
+</div>
+
+<!-- MUSIC STUDIO -->
+<div id="music" class="page">
+  <div class="sw">
+    <span class="pg-tag">Studio &mdash; Music Library</span>
+    <div class="pg-title">Music Studio</div>
+    <p class="pg-desc">Professional music library for film, television and digital content. Browse by genre and add tracks to your Film Editor timeline.</p>
+    <div class="music-filters">
+      <span class="mf on" onclick="mFlt(this,'all')">All Genres</span>
+      <span class="mf" onclick="mFlt(this,'cinematic')">Cinematic</span>
+      <span class="mf" onclick="mFlt(this,'ambient')">Ambient</span>
+      <span class="mf" onclick="mFlt(this,'action')">Action</span>
+      <span class="mf" onclick="mFlt(this,'drama')">Drama</span>
+      <span class="mf" onclick="mFlt(this,'horror')">Horror</span>
+      <span class="mf" onclick="mFlt(this,'electronic')">Electronic</span>
+      <span class="mf" onclick="mFlt(this,'orchestral')">Orchestral</span>
+    </div>
+    <div class="track-list" id="track-list"></div>
+    <div class="note" style="margin-top:20px"><strong>Industry Use:</strong> All tracks are cleared for film, TV, streaming and commercial use. Add to your Film Editor timeline with one click.</div>
+  </div>
+</div>
+
+<!-- FILM EDITOR -->
+<div id="editor" class="page">
+  <div class="sw" style="max-width:1100px">
+    <span class="pg-tag">Create &mdash; Film Editor</span>
+    <div class="pg-title">Film Editor</div>
+    <p class="pg-desc">Professional non-linear timeline. Layer Exodus images, Chronicles worlds, Voice Over and Music Studio tracks.</p>
+    <div style="background:rgba(0,0,0,0.5);border:0.5px solid rgba(255,255,255,0.08);border-radius:18px;overflow:hidden;margin-bottom:18px">
+      <div style="height:260px;background:linear-gradient(135deg,rgba(5,3,14,0.9),rgba(20,10,40,0.9));display:flex;align-items:center;justify-content:center">
+        <div style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:18px;color:rgba(255,255,255,0.2)" id="ed-screen">Add clips to begin editing</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;padding:14px 18px;border-top:0.5px solid rgba(255,255,255,0.06)">
+        <button style="background:rgba(255,255,255,0.06);border:none;color:rgba(255,255,255,0.5);width:34px;height:34px;border-radius:8px;cursor:pointer;font-size:14px" onclick="edRew()">&#9198;</button>
+        <button style="background:rgba(255,255,255,0.06);border:none;color:rgba(255,255,255,0.5);width:34px;height:34px;border-radius:8px;cursor:pointer;font-size:14px" id="ed-pb" onclick="edPlay()">&#9654;</button>
+        <button style="background:rgba(255,255,255,0.06);border:none;color:rgba(255,255,255,0.5);width:34px;height:34px;border-radius:8px;cursor:pointer;font-size:14px" onclick="edFwd()">&#9197;</button>
+        <div style="flex:1;height:4px;background:rgba(255,255,255,0.06);border-radius:2px;cursor:pointer" onclick="edSeek(event)" id="ed-tl"><div style="height:100%;width:0%;background:linear-gradient(90deg,#7c4dff,#e040fb);border-radius:2px;transition:width 0.1s" id="ed-prog"></div></div>
+        <span style="font-size:12px;color:rgba(255,255,255,0.28)" id="ed-time">0:00 / 2:00</span>
+      </div>
+    </div>
+    <div style="background:rgba(0,0,0,0.3);border:0.5px solid rgba(255,255,255,0.06);border-radius:14px;padding:18px;margin-bottom:18px">
+      <div style="display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap">
+        <button class="run" onclick="edClip('video')">+ Exodus Clip</button>
+        <button class="run cy" onclick="edClip('voice')">+ Voice Track</button>
+        <button class="run go" onclick="edClip('cgi')">+ Chronicles World</button>
+        <button class="run gr" onclick="edClip('music')">+ Music Track</button>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <div style="display:flex;align-items:center;gap:10px"><span style="font-size:10px;color:rgba(255,255,255,0.28);width:80px;text-align:right">EXODUS</span><div style="flex:1;height:26px;background:rgba(255,255,255,0.03);border-radius:4px;position:relative;overflow:hidden" id="tl-video"></div></div>
+        <div style="display:flex;align-items:center;gap:10px"><span style="font-size:10px;color:rgba(255,255,255,0.28);width:80px;text-align:right">VOICE</span><div style="flex:1;height:26px;background:rgba(255,255,255,0.03);border-radius:4px;position:relative;overflow:hidden" id="tl-voice"></div></div>
+        <div style="display:flex;align-items:center;gap:10px"><span style="font-size:10px;color:rgba(255,255,255,0.28);width:80px;text-align:right">CHRONICLES</span><div style="flex:1;height:26px;background:rgba(255,255,255,0.03);border-radius:4px;position:relative;overflow:hidden" id="tl-cgi"></div></div>
+        <div style="display:flex;align-items:center;gap:10px"><span style="font-size:10px;color:rgba(255,255,255,0.28);width:80px;text-align:right">MUSIC</span><div style="flex:1;height:26px;background:rgba(255,255,255,0.03);border-radius:4px;position:relative;overflow:hidden" id="tl-music"></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- VAULT -->
+<div id="vault" class="page">
+  <div class="sw">
+    <span class="pg-tag">Studio &mdash; Saved Prompts</span>
+    <div class="pg-title">Prompt Vault</div>
+    <p class="pg-desc">Save your best prompts. Persists across visits.</p>
+    <div class="panel">
+      <div class="row">
+        <input class="ti" id="vt-title" placeholder="Prompt name..." style="flex:0 0 160px"/>
+        <input class="ti" id="vt-body" placeholder="Prompt text..."/>
+        <select class="ti" id="vt-type" style="flex:0 0 110px"><option>Image</option><option>World</option><option>Voice</option><option>Scene</option></select>
+        <button class="run" onclick="vtSave()">Save</button>
+      </div>
+    </div>
+    <div class="vl" id="vault-list"></div>
+  </div>
+</div>
+
+<!-- LOGIN -->
+<div id="login" class="page">
+  <div class="sw"><div class="auth-wrap">
+    <div class="auth-card">
+      <span class="auth-logo">Aureate</span>
+      <p class="auth-sub">Welcome back to your studio</p>
+      <div class="auth-err" id="login-err"></div>
+      <input class="auth-input" type="email" id="li-email" placeholder="Email address"/>
+      <input class="auth-input" type="password" id="li-pass" placeholder="Password"/>
+      <button class="auth-btn" onclick="doLogin()">Sign In &#10022;</button>
+      <div class="auth-switch">Don't have an account? <span onclick="go('signup')">Sign up free</span></div>
+    </div>
+  </div></div>
+</div>
+
+<!-- SIGNUP -->
+<div id="signup" class="page">
+  <div class="sw"><div class="auth-wrap">
+    <div class="auth-card">
+      <span class="auth-logo">Aureate</span>
+      <p class="auth-sub">Start creating cinematic content today</p>
+      <div class="auth-err" id="su-err"></div>
+      <input class="auth-input" type="text" id="su-name" placeholder="Full name"/>
+      <input class="auth-input" type="email" id="su-email" placeholder="Email address"/>
+      <input class="auth-input" type="password" id="su-pass" placeholder="Create password (min 6 chars)"/>
+      <button class="auth-btn" onclick="doSignup()">Create Free Account &#10022;</button>
+      <div class="auth-switch">Already have an account? <span onclick="go('login')">Sign in</span></div>
+      <p style="font-size:11px;color:rgba(255,255,255,0.18);text-align:center;margin-top:14px">No credit card required. Free plan includes 20 image generations per month.</p>
+    </div>
+  </div></div>
+</div>
+
+<!-- ACCOUNT -->
+<div id="account" class="page">
+  <div class="sw"><div id="acct-content"></div></div>
+</div>
+
+<!-- DASHBOARD -->
+<div id="dashboard" class="page">
+  <div class="sw">
+    <span class="pg-tag">Account</span>
+    <div class="pg-title">Your Studio</div>
+    <div class="dash-stats">
+      <div class="ds"><div class="ds-lbl">Images Generated</div><div class="ds-val" id="dash-img">0</div><div class="ds-sub">this session</div></div>
+      <div class="ds"><div class="ds-lbl">Worlds Created</div><div class="ds-val" id="dash-world">0</div><div class="ds-sub">this session</div></div>
+      <div class="ds"><div class="ds-lbl">Prompts Saved</div><div class="ds-val" id="dash-prompts">0</div><div class="ds-sub">in vault</div></div>
+      <div class="ds"><div class="ds-lbl">Plan</div><div class="ds-val" style="font-size:18px;margin-top:6px">Free</div><div class="ds-sub"><span style="color:#e040fb;cursor:pointer" onclick="go('subscriptions')">Upgrade &rarr;</span></div></div>
+    </div>
+    <div class="panel">
+      <div class="panel-title">Live Tools</div>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <div style="display:flex;align-items:center;gap:14px;background:rgba(224,64,251,0.04);border:0.5px solid rgba(224,64,251,0.12);border-radius:10px;padding:14px 18px;cursor:pointer" onclick="go('exodus')"><div style="width:8px;height:8px;border-radius:50%;background:#e040fb;flex-shrink:0"></div><div style="flex:1;font-size:14px;color:rgba(255,255,255,0.75)">Exodus Beta 1 &mdash; Image Generator</div><span style="font-size:11px;color:#4caf82">LIVE</span></div>
+        <div style="display:flex;align-items:center;gap:14px;background:rgba(64,196,255,0.04);border:0.5px solid rgba(64,196,255,0.12);border-radius:10px;padding:14px 18px;cursor:pointer" onclick="go('chronicles')"><div style="width:8px;height:8px;border-radius:50%;background:#40c4ff;flex-shrink:0"></div><div style="flex:1;font-size:14px;color:rgba(255,255,255,0.75)">Chronicles Beta 1 &mdash; World Generator</div><span style="font-size:11px;color:#4caf82">LIVE</span></div>
+        <div style="display:flex;align-items:center;gap:14px;background:rgba(255,196,77,0.04);border:0.5px solid rgba(255,196,77,0.12);border-radius:10px;padding:14px 18px;cursor:pointer" onclick="go('ezequiel')"><div style="width:8px;height:8px;border-radius:50%;background:#ffc44d;flex-shrink:0"></div><div style="flex:1;font-size:14px;color:rgba(255,255,255,0.75)">Ezequiel Beta 1 &mdash; Photo Editor</div><span style="font-size:11px;color:#4caf82">LIVE</span></div>
+        <div style="display:flex;align-items:center;gap:14px;background:rgba(124,77,255,0.04);border:0.5px solid rgba(124,77,255,0.12);border-radius:10px;padding:14px 18px;cursor:pointer" onclick="go('esus')"><div style="width:8px;height:8px;border-radius:50%;background:#b39ddb;flex-shrink:0"></div><div style="flex:1;font-size:14px;color:rgba(255,255,255,0.75)">Esus Beta 1 &mdash; Digital Painter</div><span style="font-size:11px;color:#4caf82">LIVE</span></div>
+        <div style="display:flex;align-items:center;gap:14px;background:rgba(76,175,130,0.04);border:0.5px solid rgba(76,175,130,0.12);border-radius:10px;padding:14px 18px;cursor:pointer" onclick="go('voice')"><div style="width:8px;height:8px;border-radius:50%;background:#4caf82;flex-shrink:0"></div><div style="flex:1;font-size:14px;color:rgba(255,255,255,0.75)">Voice Over Studio</div><span style="font-size:11px;color:#4caf82">LIVE</span></div>
+        <div style="display:flex;align-items:center;gap:14px;background:rgba(76,175,130,0.04);border:0.5px solid rgba(76,175,130,0.12);border-radius:10px;padding:14px 18px;cursor:pointer" onclick="go('music')"><div style="width:8px;height:8px;border-radius:50%;background:#4caf82;flex-shrink:0"></div><div style="flex:1;font-size:14px;color:rgba(255,255,255,0.75)">Music Studio</div><span style="font-size:11px;color:#4caf82">NEW</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SUBSCRIPTIONS -->
+<div id="subscriptions" class="page">
+  <div class="sw">
+    <span class="pg-tag">Account</span>
+    <div class="pg-title">Unlock Your Vision</div>
+    <p class="pg-desc">Choose the plan built for where you are right now.</p>
+    <div class="plans">
+      <div class="plan"><div class="plan-name pn-free">Free</div><div class="plan-tag">Start creating today</div><div class="price-row"><span class="pr-cur">$</span><span class="pr-amt">0</span><span class="pr-per">/mo</span></div><button class="plan-btn pb-free" onclick="go('signup')">Get started free</button><div class="plan-div"></div><ul class="feat-list"><li><span class="ck y">&#10003;</span>20 Exodus generations/mo</li><li><span class="ck y">&#10003;</span>10 Chronicles worlds/mo</li><li><span class="ck y">&#10003;</span>Ezequiel Beta 1</li><li><span class="ck y">&#10003;</span>Esus Beta 1</li><li><span class="ck y">&#10003;</span>Voice Over Studio</li><li class="dim"><span class="ck n">&#10007;</span>Music Studio</li><li class="dim"><span class="ck n">&#10007;</span>Film Editor</li><li class="dim"><span class="ck n">&#10007;</span>Commercial license</li></ul></div>
+      <div class="plan feat"><div class="pop-badge">&#10022; Most Popular</div><div class="plan-name pn-cr">Creator</div><div class="plan-tag">For serious storytellers</div><div class="price-row"><span class="pr-cur">$</span><span class="pr-amt">29</span><span class="pr-per">/mo</span></div><button class="plan-btn pb-cr" onclick="go('signup')">Start Creator &#10022;</button><div class="plan-div"></div><ul class="feat-list"><li><span class="ck y">&#10003;</span>500 Exodus generations/mo</li><li><span class="ck y">&#10003;</span>Unlimited Chronicles worlds</li><li><span class="ck y">&#10003;</span>Full Music Studio library</li><li><span class="ck y">&#10003;</span>Film Editor</li><li><span class="ck y">&#10003;</span>All tools unlimited</li><li><span class="ck y">&#10003;</span>Commercial license</li><li><span class="ck y">&#10003;</span>Priority support</li><li class="dim"><span class="ck n">&#10007;</span>Genesis Beta 1 early access</li></ul></div>
+      <div class="plan"><div class="plan-name pn-st">Studio</div><div class="plan-tag">Full cinematic power</div><div class="price-row"><span class="pr-cur">$</span><span class="pr-amt">79</span><span class="pr-per">/mo</span></div><button class="plan-btn pb-st" onclick="go('signup')">Go Studio</button><div class="plan-div"></div><ul class="feat-list"><li><span class="ck y">&#10003;</span>Unlimited everything</li><li><span class="ck y">&#10003;</span>Genesis Beta 1 early access</li><li><span class="ck y">&#10003;</span>4K + RAW export</li><li><span class="ck y">&#10003;</span>Custom voice models</li><li><span class="ck y">&#10003;</span>Team access (5 seats)</li><li><span class="ck y">&#10003;</span>Commercial + broadcast license</li><li><span class="ck y">&#10003;</span>Dedicated support</li></ul></div>
+    </div>
+    <div style="text-align:center;padding:28px;background:rgba(255,255,255,0.02);border:0.5px solid rgba(255,255,255,0.06);border-radius:16px">
+      <p style="font-size:14px;color:rgba(255,255,255,0.4);line-height:1.7;font-weight:300">All plans include a 7-day free trial. Cancel anytime.<br>Payments powered by Stripe &mdash; secure and encrypted.</p>
+    </div>
+  </div>
+</div>
+
+<!-- COMMUNITY -->
+<div id="community" class="page">
+  <div class="sw">
+    <span class="pg-tag">Discover</span>
+    <div class="pg-title">Community Gallery</div>
+    <p class="pg-desc">Explore and remix creations from the Aureate community.</p>
+    <div class="upload-zone" onclick="communityUpload()">
+      <div style="font-size:38px;color:rgba(255,255,255,0.2)">&#8679;</div>
+      <p>Share your creation with the community</p>
+    </div>
+    <div class="chips" style="margin-bottom:20px"><span class="chip on" onclick="tc(this)">All</span><span class="chip" onclick="tc(this)">Images</span><span class="chip" onclick="tc(this)">Worlds</span><span class="chip" onclick="tc(this)">Trending</span></div>
+    <div class="comm-grid">
+      <div class="cc"><div class="cc-prev" style="background:linear-gradient(135deg,rgba(224,64,251,0.12),rgba(124,77,255,0.08))">&#127750;</div><div class="cc-body"><div class="cc-top"><div><div class="cc-t">Neon District 2089</div><div class="cc-a">by @vox_render</div></div><span class="cc-badge" style="background:rgba(224,64,251,0.1);color:#e040fb">Exodus</span></div><div class="cc-foot"><span class="cc-stat">&#9829; 2.4k</span><span class="cc-stat">&#8635; 847 remixes</span></div></div></div>
+      <div class="cc"><div class="cc-prev" style="background:linear-gradient(135deg,rgba(64,196,255,0.1),rgba(124,77,255,0.06))">&#129680;</div><div class="cc-body"><div class="cc-top"><div><div class="cc-t">Orbital Station Omega</div><div class="cc-a">by @spaceframe</div></div><span class="cc-badge" style="background:rgba(64,196,255,0.1);color:#40c4ff">Chronicles</span></div><div class="cc-foot"><span class="cc-stat">&#9829; 3.7k</span><span class="cc-stat">&#8635; 1.2k remixes</span></div></div></div>
+      <div class="cc"><div class="cc-prev" style="background:linear-gradient(135deg,rgba(76,175,130,0.1),rgba(64,196,255,0.06))">&#127754;</div><div class="cc-body"><div class="cc-top"><div><div class="cc-t">Abyssal Dream</div><div class="cc-a">by @deep_frames</div></div><span class="cc-badge" style="background:rgba(76,175,130,0.1);color:#4caf82">Esus</span></div><div class="cc-foot"><span class="cc-stat">&#9829; 887</span><span class="cc-stat">&#8635; 211 remixes</span></div></div></div>
+      <div class="cc"><div class="cc-prev" style="background:linear-gradient(135deg,rgba(255,196,77,0.1),rgba(255,140,66,0.06))">&#127917;</div><div class="cc-body"><div class="cc-top"><div><div class="cc-t">Commander Reyes</div><div class="cc-a">by @cinema_craft</div></div><span class="cc-badge" style="background:rgba(255,196,77,0.1);color:#ffc44d">Character</span></div><div class="cc-foot"><span class="cc-stat">&#9829; 1.1k</span><span class="cc-stat">&#8635; 320 remixes</span></div></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- REMIX -->
+<div id="remix" class="page">
+  <div class="sw">
+    <span class="pg-tag">Discover</span>
+    <div class="pg-title">Remix Lab</div>
+    <p class="pg-desc">Take any prompt, add a twist, generate a real AI variation.</p>
+    <div class="g2" style="margin-bottom:18px">
+      <div class="panel" style="margin-bottom:0"><div class="panel-title">Source Prompt</div><textarea class="ti" id="rmx-src" style="min-height:120px">Rain soaked cyberpunk alleyway at night neon billboards reflecting in puddles cinematic 35mm lens</textarea></div>
+      <div class="panel" style="margin-bottom:0"><div class="panel-title">Remix Direction</div><textarea class="ti" id="rmx-dir" style="min-height:80px" placeholder="Make it a 1940s noir scene with a fedora-wearing detective..."></textarea><button class="run cy" style="margin-top:12px;width:100%" onclick="runRemix()">Remix with Exodus &#10022;</button></div>
+    </div>
+    <div id="rmx-result"></div>
+  </div>
+</div>
+
+<!-- SPOTLIGHT -->
+<div id="spotlight" class="page">
+  <div class="sw">
+    <span class="pg-tag">Discover</span>
+    <div class="pg-title">Creator Spotlight</div>
+    <p class="pg-desc">Meet the filmmakers pushing Aureate to its limits.</p>
+    <div class="spotlight-grid">
+      <div class="sp-card"><div class="sp-av" style="background:linear-gradient(135deg,#e040fb,#7c4dff)">&#127902;</div><div class="sp-name">Marcus Vey</div><div class="sp-role">Cinematic Director</div><div class="sp-stats"><div class="sp-stat"><strong>2.4k</strong>followers</div><div class="sp-stat"><strong>148</strong>creations</div></div></div>
+      <div class="sp-card"><div class="sp-av" style="background:linear-gradient(135deg,#40c4ff,#7c4dff)">&#127912;</div><div class="sp-name">Sora Nakamura</div><div class="sp-role">Concept Artist</div><div class="sp-stats"><div class="sp-stat"><strong>1.8k</strong>followers</div><div class="sp-stat"><strong>320</strong>creations</div></div></div>
+      <div class="sp-card"><div class="sp-av" style="background:linear-gradient(135deg,#ffc44d,#ff8c42)">&#10024;</div><div class="sp-name">Elara Voss</div><div class="sp-role">World Builder</div><div class="sp-stats"><div class="sp-stat"><strong>3.1k</strong>followers</div><div class="sp-stat"><strong>87</strong>creations</div></div></div>
+      <div class="sp-card"><div class="sp-av" style="background:linear-gradient(135deg,#4caf82,#40c4ff)">&#129680;</div><div class="sp-name">Orion Black</div><div class="sp-role">CGI World Artist</div><div class="sp-stats"><div class="sp-stat"><strong>4.4k</strong>followers</div><div class="sp-stat"><strong>43</strong>creations</div></div></div>
+      <div class="sp-card"><div class="sp-av" style="background:linear-gradient(135deg,#7c4dff,#e040fb)">&#127897;</div><div class="sp-name">Lyra Chen</div><div class="sp-role">Voice Director</div><div class="sp-stats"><div class="sp-stat"><strong>1.2k</strong>followers</div><div class="sp-stat"><strong>65</strong>creations</div></div></div>
+      <div class="sp-card"><div class="sp-av" style="background:linear-gradient(135deg,#e040fb,#40c4ff)">&#9999;</div><div class="sp-name">Dante Cruz</div><div class="sp-role">Digital Painter</div><div class="sp-stats"><div class="sp-stat"><strong>940</strong>followers</div><div class="sp-stat"><strong>210</strong>creations</div></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- LIVE FEED -->
+<div id="livefeed" class="page">
+  <div class="sw">
+    <span class="pg-tag">Discover</span>
+    <div class="pg-title">Live Feed</div>
+    <div class="live-badge"><span class="ldot" style="background:#ff5555"></span>Live &mdash; updating every few seconds</div>
+    <div class="feed" id="live-feed"></div>
+  </div>
+</div>
+
+<!-- MAGAZINE -->
+<div id="magazine" class="page">
+  <div class="sw">
+    <span class="pg-tag">Learn</span>
+    <div class="pg-title">Aureate Magazine</div>
+    <p class="pg-desc">Stories, interviews and inspiration from the frontier of AI filmmaking.</p>
+    <div class="mag-grid">
+      <div class="mag-feat"><div class="mag-img" style="background:linear-gradient(135deg,rgba(224,64,251,0.12),rgba(124,77,255,0.06))">&#127902;</div><div class="mag-body"><div class="mag-cat">Cover Story</div><div class="mag-title">How Marcus Vey Shot an Entire Short Film Using Only Aureate</div><div class="mag-excerpt">The acclaimed director talks about his 18-month journey creating "Neon Requiem" and what it means for the future of independent cinema.</div></div></div>
+      <div class="mag-side">
+        <div class="mag-sm"><div class="mag-sm-img" style="background:linear-gradient(135deg,rgba(64,196,255,0.1),rgba(124,77,255,0.06))">&#127756;</div><div class="mag-sm-body"><div class="mag-sm-cat">World Building</div><div class="mag-sm-title">5 Chronicles Prompts That Deliver Every Time</div></div></div>
+        <div class="mag-sm"><div class="mag-sm-img" style="background:linear-gradient(135deg,rgba(255,196,77,0.1),rgba(224,64,251,0.06))">&#9999;</div><div class="mag-sm-body"><div class="mag-sm-cat">Digital Art</div><div class="mag-sm-title">Mastering Esus Beta 1: From Sketch to Masterpiece</div></div></div>
+        <div class="mag-sm"><div class="mag-sm-img" style="background:linear-gradient(135deg,rgba(76,175,130,0.1),rgba(64,196,255,0.06))">&#127925;</div><div class="mag-sm-body"><div class="mag-sm-cat">Music</div><div class="mag-sm-title">Scoring Your Short Film with Music Studio</div></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TUTORIALS -->
+<div id="tutorials" class="page">
+  <div class="sw">
+    <span class="pg-tag">Learn</span>
+    <div class="pg-title">Tutorials</div>
+    <p class="pg-desc">From first image to full cinematic production.</p>
+    <div class="tools-grid">
+      <div class="tc tc-mg" onclick="go('exodus')"><div class="tc-num">Beginner</div><div class="tc-icon">&#128444;</div><div class="tc-name">Your First Exodus Image</div><p class="tc-desc">Master prompting fundamentals and generate your first cinematic image.</p><div class="tc-arr">&#8599;</div></div>
+      <div class="tc tc-cy" onclick="go('chronicles')"><div class="tc-num">Beginner</div><div class="tc-icon">&#127756;</div><div class="tc-name">Build Your First World</div><p class="tc-desc">Use Chronicles to generate and expand a full cinematic world.</p><div class="tc-arr">&#8599;</div></div>
+      <div class="tc tc-go" onclick="go('ezequiel')"><div class="tc-num">Intermediate</div><div class="tc-icon">&#127912;</div><div class="tc-name">Mastering Ezequiel</div><p class="tc-desc">Learn all 12 professional tools in Ezequiel Beta 1.</p><div class="tc-arr">&#8599;</div></div>
+      <div class="tc tc-vi" onclick="go('esus')"><div class="tc-num">Intermediate</div><div class="tc-icon">&#9999;</div><div class="tc-name">Drawing with Esus</div><p class="tc-desc">Procreate techniques translated to Esus Beta 1.</p><div class="tc-arr">&#8599;</div></div>
+      <div class="tc tc-gr" onclick="go('voice')"><div class="tc-num">Advanced</div><div class="tc-icon">&#127897;</div><div class="tc-name">Cinematic Voice Direction</div><p class="tc-desc">Record and transform voice overs for professional results.</p><div class="tc-arr">&#8599;</div></div>
+      <div class="tc tc-gr" onclick="go('editor')"><div class="tc-num">Advanced</div><div class="tc-icon">&#127902;</div><div class="tc-name">Your First Short Film</div><p class="tc-desc">Full production walkthrough in the Film Editor start to finish.</p><div class="tc-arr">&#8599;</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- PROMPT GUIDES -->
+<div id="prompts" class="page">
+  <div class="sw">
+    <span class="pg-tag">Learn</span>
+    <div class="pg-title">Prompt Guides</div>
+    <p class="pg-desc">Master the art of prompting for cinematic results.</p>
+    <div class="vl">
+      <div class="vr"><span class="vtag" style="background:rgba(224,64,251,0.1);color:#e040fb;border:0.5px solid rgba(224,64,251,0.2)">Exodus</span><div><div class="vt">The Cinematography Formula</div><div class="vb">Subject + Setting + Lighting + Lens + Mood + Era. Example: "A lone detective, rain-soaked alley, neon backlight, 35mm wide angle, noir melancholy, 1940s film grain"</div></div></div>
+      <div class="vr"><span class="vtag" style="background:rgba(64,196,255,0.09);color:#40c4ff;border:0.5px solid rgba(64,196,255,0.18)">Chronicles</span><div><div class="vt">World Layering Technique</div><div class="vb">Start macro (a city) then add layers (rain, 2am, neon signs, one figure). Each detail adds believability and depth to the generated world.</div></div></div>
+      <div class="vr"><span class="vtag" style="background:rgba(76,175,130,0.09);color:#4caf82;border:0.5px solid rgba(76,175,130,0.18)">Voice</span><div><div class="vt">Pacing for Trailers</div><div class="vb">Epic Narrator preset works best. Write full punctuated sentences. Ellipses create dramatic pauses... Exclamation marks add power! Short sentences hit harder.</div></div></div>
+      <div class="vr"><span class="vtag" style="background:rgba(124,77,255,0.1);color:#b39ddb;border:0.5px solid rgba(124,77,255,0.2)">Esus</span><div><div class="vt">AI Draw Prompts</div><div class="vb">Describe art style alongside subject: "Studio Ghibli style background painting, misty mountain village at dusk, warm light in windows"</div></div></div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /shell --><script>
+// ============ CORE ============
+const synth=window.speechSynthesis;
+let sImg=0,sWorld=0,lastRemixSrc='';
+function ezFromRemix(){if(!lastRemixSrc)return;localStorage.setItem('aureate-last-img',lastRemixSrc);go('ezequiel');}
+
+function go(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  const el=document.getElementById(id);
+  if(el){el.classList.add('active');window.scrollTo({top:0,behavior:'smooth'});}
+  if(id==='vault')vtLoad();
+  if(id==='livefeed')startFeed();
+  if(id==='music')buildTracks();
+  if(id==='account')renderAccount();
+  if(id==='dashboard'){document.getElementById('dash-img').textContent=sImg;document.getElementById('dash-world').textContent=sWorld;document.getElementById('dash-prompts').textContent=(JSON.parse(localStorage.getItem('aureate-vault')||'[]')).length;}
+}
+
+// ============ CURSOR ============
+const cur=document.getElementById('cur'),ring=document.getElementById('curRing');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px';});
+(function loop(){rx+=(mx-rx)*0.1;ry+=(my-ry)*0.1;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(loop);})();
+document.querySelectorAll('button,a,.tc,.cc,.sp-card,.chip,.vp,.sty,.flt-btn,.tb-btn,.esus-tool,.mf,.track').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cur.style.width='20px';cur.style.height='20px';ring.style.width='52px';ring.style.height='52px';ring.style.transition='width .25s,height .25s';});
+  el.addEventListener('mouseleave',()=>{cur.style.width='12px';cur.style.height='12px';ring.style.width='36px';ring.style.height='36px';});
+});
+
+// SPLASH
+setTimeout(()=>document.getElementById('splash').classList.add('gone'),3600);
+
+// TICKER
+(function(){
+  const items=['Exodus Beta 1','Chronicles Beta 1','Ezequiel Beta 1','Esus Beta 1','Voice Over Studio','Music Studio','Film Editor','Genesis Beta 1 Coming Soon','Community Gallery','Prompt Vault'];
+  const t=document.getElementById('tkr');if(!t)return;
+  const full=[...items,...items].map(i=>'<span class="ti-item"><span class="tdot">&#10022;</span>'+i+'</span>').join('');
+  t.innerHTML=full+full;
+})();
+
+// ============ URL BUILDER (THE FIX) ============
+function clean(txt){
+  return txt.replace(/[^a-zA-Z0-9 .,!?\-]/g,' ').replace(/\s+/g,' ').trim();
+}
+function buildUrl(prompt,w,h,model,seed){
+  return 'https://image.pollinations.ai/prompt/'+encodeURIComponent(clean(prompt))+'?width='+w+'&height='+h+'&model='+model+'&seed='+seed+'&nologo=true&enhance=true';
+}
+function loadImg(url,ok,fail){
+  const img=new Image();
+  img.onload=()=>ok(img.src);
+  img.onerror=()=>fail();
+  img.src=url;
+}
+
+// ============ EXODUS BETA 1 ============
+let exStyles=['cinematic'],exSeed=null,exUrl=null;
+
+function exStyle(el,s){
+  if(el.classList.contains('on')){if(exStyles.length<=1)return;el.classList.remove('on');exStyles=exStyles.filter(x=>x!==s);}
+  else{el.classList.add('on');exStyles.push(s);}
+}
+
+function runExodus(){
+  const raw=document.getElementById('ex-prompt').value.trim();
+  if(!raw){alert('Please describe your vision first!');return;}
+  const light=document.getElementById('ex-light').value;
+  const full=raw+' '+exStyles.join(' ')+(light?' '+light:'')+' highly detailed';
+  const model=document.getElementById('ex-model').value;
+  const sz=document.getElementById('ex-size').value;
+  const [w,h]=sz.split('x');
+  exSeed=Math.floor(Math.random()*999999)+1;
+  exUrl=buildUrl(full,w,h,model,exSeed);
+
+  const btn=document.getElementById('ex-btn');
+  btn.disabled=true;btn.textContent='Generating...';
+  document.getElementById('ex-dot').className='dot a';
+  document.getElementById('ex-st').textContent='Exodus is creating your image...';
+  document.getElementById('ex-load').style.display='block';
+  document.getElementById('ex-result').style.display='none';
+
+  const bar=document.getElementById('ex-bar');
+  bar.style.transition='none';bar.style.width='0%';
+  setTimeout(()=>{bar.style.width='90%';},50);
+
+  loadImg(exUrl,src=>{
+    document.getElementById('exodus-img').src=src;
+    document.getElementById('ex-seed-v').textContent=exSeed;
+    document.getElementById('ex-model-v').textContent=model;
+    document.getElementById('ex-size-v').textContent=w+'x'+h;
+    document.getElementById('ex-load').style.display='none';
+    document.getElementById('ex-result').style.display='block';
+    document.getElementById('ex-dot').className='dot g';
+    document.getElementById('ex-st').textContent='Image ready ✦';
+    btn.disabled=false;btn.textContent='✦ Generate with Exodus Beta 1';
+    bar.style.width='100%';
+    sImg++;document.getElementById('dash-img').textContent=sImg;
+    localStorage.setItem('aureate-last-img',src);
+  },()=>{
+    const simple=raw.split(' ').slice(0,6).join(' ')+' cinematic';
+    loadImg(buildUrl(simple,w,h,'flux',exSeed+50000),src=>{
+      document.getElementById('exodus-img').src=src;exUrl=src;
+      document.getElementById('ex-seed-v').textContent=exSeed+50000;
+      document.getElementById('ex-model-v').textContent='flux';
+      document.getElementById('ex-size-v').textContent=w+'x'+h;
+      document.getElementById('ex-load').style.display='none';
+      document.getElementById('ex-result').style.display='block';
+      document.getElementById('ex-dot').className='dot g';
+      document.getElementById('ex-st').textContent='Image ready ✦';
+      btn.disabled=false;btn.textContent='✦ Generate with Exodus Beta 1';
+      sImg++;document.getElementById('dash-img').textContent=sImg;
+      localStorage.setItem('aureate-last-img',src);
+    },()=>{
+      document.getElementById('ex-load').style.display='none';
+      document.getElementById('ex-dot').className='dot r';
+      document.getElementById('ex-st').textContent='Generation failed — try a simpler prompt';
+      btn.disabled=false;btn.textContent='✦ Generate with Exodus Beta 1';
+    });
+  });
+}
+
+function exDownload(){if(!exUrl)return;const a=document.createElement('a');a.href=exUrl;a.download='exodus-'+exSeed+'.jpg';a.target='_blank';a.click();}
+function exToEzequiel(){if(!exUrl)return;localStorage.setItem('aureate-last-img',exUrl);go('ezequiel');setTimeout(()=>ezLoadUrl(exUrl),300);}
+function exToEsus(){if(!exUrl)return;go('esus');setTimeout(()=>esLoadUrl(exUrl),300);}
+function exSaveVault(){const p=document.getElementById('ex-prompt').value.trim();if(p){vtAdd('Image','Exodus: '+p.slice(0,35),p);alert('Saved to Vault!');}}
+
+// ============ CHRONICLES BETA 1 ============
+let chUrl=null;
+
+function chSet(p){document.getElementById('ch-input').value=p;runChronicles();}
+
+function runChronicles(){
+  const raw=document.getElementById('ch-input').value.trim();
+  if(!raw){alert('Describe a world first!');return;}
+  const url=buildUrl(raw+' ultra wide cinematic dramatic lighting highly detailed',1280,720,'flux',Math.floor(Math.random()*999999)+1);
+  chUrl=url;
+  document.getElementById('ch-load').style.display='block';
+  document.getElementById('ch-result').style.display='none';
+  document.getElementById('world-builder').style.display='none';
+  const bar=document.getElementById('ch-bar');bar.style.transition='none';bar.style.width='0%';
+  setTimeout(()=>{bar.style.width='90%';},50);
+  loadImg(url,src=>{
+    chUrl=src;document.getElementById('chronicles-img').src=src;
+    document.getElementById('ch-load').style.display='none';
+    document.getElementById('ch-result').style.display='block';
+    bar.style.width='100%';
+    sWorld++;document.getElementById('dash-world').textContent=sWorld;
+    localStorage.setItem('aureate-last-img',src);
+  },()=>{
+    const s=raw.split(' ').slice(0,5).join(' ')+' world cinematic';
+    loadImg(buildUrl(s,1280,720,'flux',Math.floor(Math.random()*99999)),src=>{
+      chUrl=src;document.getElementById('chronicles-img').src=src;
+      document.getElementById('ch-load').style.display='none';
+      document.getElementById('ch-result').style.display='block';
+      sWorld++;document.getElementById('dash-world').textContent=sWorld;
+    },()=>{document.getElementById('ch-load').style.display='none';alert('Generation failed. Try a different description.');});
+  });
+}
+
+function worldBuildYes(){document.getElementById('world-builder').style.display='block';window.scrollTo({top:document.getElementById('world-builder').offsetTop-80,behavior:'smooth'});}
+function worldBuildNo(){document.getElementById('world-builder').style.display='none';}
+
+function runWorldBuild(){
+  const base=document.getElementById('ch-input').value.trim();
+  const t=document.getElementById('wb-time').value,w=document.getElementById('wb-weather').value;
+  const p=document.getElementById('wb-pop').value,e=document.getElementById('wb-era').value;
+  const s=document.getElementById('wb-story').value;
+  const full=base+' '+t+' '+w+' '+e+' '+p+(s?' '+s:'')+' ultra wide cinematic';
+  document.getElementById('ch-load').style.display='block';
+  loadImg(buildUrl(full,1280,720,'flux',Math.floor(Math.random()*999999)),src=>{
+    document.getElementById('chronicles-img').src=src;chUrl=src;
+    document.getElementById('ch-load').style.display='none';
+    sWorld++;document.getElementById('dash-world').textContent=sWorld;
+  },()=>{document.getElementById('ch-load').style.display='none';alert('Failed. Try simplifying the details.');});
+}
+
+// ============ EZEQUIEL BETA 1 ============
+let ezCv=null,ezCtx=null,ezOrig=null,ezFilterVal='none',ezTl='select',ezBSz=20,ezBC='#e040fb',ezDrw=false,ezHist=[];
+
+function ezLoadFile(e){const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=ev=>{const i=new Image();i.onload=()=>ezInit(i);i.src=ev.target.result;};r.readAsDataURL(f);}
+function ezLoadUrl(url){const i=new Image();i.crossOrigin='anonymous';i.onload=()=>ezInit(i);i.onerror=()=>{const i2=new Image();i2.onload=()=>ezInit(i2);i2.src=url;};i.src=url;}
+function ezLoadLast(){const u=localStorage.getItem('aureate-last-img');if(u)ezLoadUrl(u);else alert('Generate an image first in Exodus Beta 1!');}
+
+function ezInit(img){
+  document.getElementById('ez-ph').style.display='none';
+  ezCv=document.getElementById('ez-canvas');ezCv.style.display='block';
+  const mw=document.getElementById('ez-container').offsetWidth||700;
+  const r=(img.naturalWidth||img.width)/(img.naturalHeight||img.height)||1;
+  ezCv.width=Math.min(mw,img.naturalWidth||700);ezCv.height=Math.round(ezCv.width/r);
+  ezCtx=ezCv.getContext('2d');ezCtx.drawImage(img,0,0,ezCv.width,ezCv.height);
+  ezOrig=ezCtx.getImageData(0,0,ezCv.width,ezCv.height);
+  ezHist=[ezCtx.getImageData(0,0,ezCv.width,ezCv.height)];
+  ezCv.onmousedown=e=>{if(ezTl==='brush'||ezTl==='eraser'){ezDrw=true;const r=ezCv.getBoundingClientRect();ezCtx.beginPath();ezCtx.moveTo(e.clientX-r.left,e.clientY-r.top);}};
+  ezCv.onmousemove=e=>{if(!ezDrw)return;const r=ezCv.getBoundingClientRect();ezCtx.lineWidth=ezBSz;ezCtx.lineCap='round';if(ezTl==='eraser'){ezCtx.globalCompositeOperation='destination-out';ezCtx.strokeStyle='rgba(0,0,0,1)';}else{ezCtx.globalCompositeOperation='source-over';ezCtx.strokeStyle=ezBC;}ezCtx.lineTo(e.clientX-r.left,e.clientY-r.top);ezCtx.stroke();ezCtx.beginPath();ezCtx.moveTo(e.clientX-r.left,e.clientY-r.top);};
+  ezCv.onmouseup=()=>{if(ezDrw){ezDrw=false;ezCtx.globalCompositeOperation='source-over';ezHist.push(ezCtx.getImageData(0,0,ezCv.width,ezCv.height));}};
+  ezCv.onclick=e=>{if(ezTl==='text'){const t=prompt('Enter text:');if(!t)return;const r=ezCv.getBoundingClientRect();ezCtx.font='bold 32px sans-serif';ezCtx.fillStyle=ezBC;ezCtx.fillText(t,e.clientX-r.left,e.clientY-r.top);ezHist.push(ezCtx.getImageData(0,0,ezCv.width,ezCv.height));}};
+}
+
+function ezTool(t,btn){ezTl=t;document.querySelectorAll('.tb-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');}
+
+function ezAdj(){
+  if(!ezCv||!ezOrig)return;
+  const bri=+document.getElementById('ez-bri').value,con=+document.getElementById('ez-con').value;
+  const sat=+document.getElementById('ez-sat').value,hue=+document.getElementById('ez-hue').value;
+  const blr=+document.getElementById('ez-blr').value,opa=+document.getElementById('ez-opa').value;
+  const vig=+document.getElementById('ez-vig').value;
+  document.getElementById('bri-v').textContent=bri;document.getElementById('con-v').textContent=con;
+  document.getElementById('sat-v').textContent=sat;document.getElementById('hue-v').textContent=hue;
+  document.getElementById('blr-v').textContent=blr;document.getElementById('opa-v').textContent=opa;document.getElementById('vig-v').textContent=vig;
+  let f='';
+  if(bri)f+='brightness('+(1+bri/100)+') ';if(con)f+='contrast('+(1+con/100)+') ';
+  if(sat)f+='saturate('+(1+sat/100)+') ';if(hue)f+='hue-rotate('+hue+'deg) ';if(blr)f+='blur('+(blr/2)+'px) ';
+  if(ezFilterVal==='grayscale')f+='grayscale(100%) ';else if(ezFilterVal==='sepia')f+='sepia(80%) ';
+  else if(ezFilterVal==='invert')f+='invert(100%) ';else if(ezFilterVal==='warm')f+='sepia(35%) saturate(140%) ';
+  else if(ezFilterVal==='cool')f+='hue-rotate(180deg) saturate(80%) ';else if(ezFilterVal==='vintage')f+='sepia(55%) contrast(90%) brightness(90%) ';
+  else if(ezFilterVal==='cinema')f+='contrast(115%) saturate(75%) brightness(93%) ';else if(ezFilterVal==='neon')f+='saturate(200%) contrast(120%) hue-rotate(20deg) ';
+  else if(ezFilterVal==='fade')f+='opacity(0.85) saturate(70%) brightness(105%) ';else if(ezFilterVal==='chrome')f+='grayscale(30%) contrast(130%) brightness(110%) ';
+  else if(ezFilterVal==='dramatic')f+='contrast(150%) saturate(120%) brightness(85%) ';
+  ezCtx.clearRect(0,0,ezCv.width,ezCv.height);ezCtx.filter=f.trim()||'none';ezCtx.globalAlpha=opa/100;
+  const tmp=document.createElement('canvas');tmp.width=ezCv.width;tmp.height=ezCv.height;tmp.getContext('2d').putImageData(ezOrig,0,0);
+  const ti=new Image();ti.onload=()=>{ezCtx.drawImage(ti,0,0);ezCtx.filter='none';ezCtx.globalAlpha=1;if(vig>0){const g=ezCtx.createRadialGradient(ezCv.width/2,ezCv.height/2,ezCv.height*0.3,ezCv.width/2,ezCv.height/2,ezCv.width*0.8);g.addColorStop(0,'rgba(0,0,0,0)');g.addColorStop(1,'rgba(0,0,0,'+(vig/100)+')');ezCtx.fillStyle=g;ezCtx.fillRect(0,0,ezCv.width,ezCv.height);}};ti.src=tmp.toDataURL();
+}
+
+function ezFlt(f,btn){ezFilterVal=f;document.querySelectorAll('.flt-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');ezAdj();}
+function ezFlipH(){if(!ezCv)return;ezCtx.save();ezCtx.scale(-1,1);ezCtx.drawImage(ezCv,-ezCv.width,0);ezCtx.restore();ezHist.push(ezCtx.getImageData(0,0,ezCv.width,ezCv.height));}
+function ezFlipV(){if(!ezCv)return;ezCtx.save();ezCtx.scale(1,-1);ezCtx.drawImage(ezCv,0,-ezCv.height);ezCtx.restore();ezHist.push(ezCtx.getImageData(0,0,ezCv.width,ezCv.height));}
+function ezUndo(){if(!ezCv||ezHist.length<=1)return;ezHist.pop();ezCtx.putImageData(ezHist[ezHist.length-1],0,0);}
+function ezReset(){if(!ezCv||!ezOrig)return;ezCtx.putImageData(ezOrig,0,0);['ez-bri','ez-con','ez-sat','ez-hue','ez-blr','ez-vig'].forEach(id=>document.getElementById(id).value=0);document.getElementById('ez-opa').value=100;ezFilterVal='none';document.querySelectorAll('.flt-btn').forEach(b=>b.classList.remove('active'));document.querySelector('.flt-btn').classList.add('active');['bri-v','con-v','sat-v','hue-v','blr-v','vig-v'].forEach(id=>document.getElementById(id).textContent=0);document.getElementById('opa-v').textContent=100;}
+function ezExport(){if(!ezCv){alert('Load an image first!');return;}const a=document.createElement('a');a.download='ezequiel-edit.png';a.href=ezCv.toDataURL('image/png');a.click();}
+
+// ============ ESUS BETA 1 ============
+let esCtx=null,esToolVal='pencil',esColor='#000000',esSize=8,esOpa=1,esDrw=false,esHist=[];
+const esColors=['#000000','#ffffff','#e040fb','#40c4ff','#7c4dff','#4caf82','#ffc44d','#ff5555','#ff8c42','#a0522d'];
+const esSizes=[4,8,14,22,36,56];
+
+(function initEsus(){
+  const c=document.getElementById('esus-canvas');if(!c)return;
+  esCtx=c.getContext('2d');esCtx.fillStyle='#ffffff';esCtx.fillRect(0,0,c.width,c.height);
+  esHist=[esCtx.getImageData(0,0,c.width,c.height)];
+  const sw=document.getElementById('es-swatches');
+  if(sw)esColors.forEach((col,i)=>{const s=document.createElement('div');s.className='sw-dot'+(i===0?' active':'');s.style.background=col;s.onclick=()=>esSetColor(col);sw.appendChild(s);});
+  const bz=document.getElementById('es-sizes');
+  if(bz)esSizes.forEach((sz,i)=>{const b=document.createElement('div');b.className='bsz'+(i===1?' active':'');b.style.width=Math.max(10,sz/2.5)+'px';b.style.height=Math.max(10,sz/2.5)+'px';b.onclick=()=>{esSize=sz;document.querySelectorAll('.bsz').forEach(x=>x.classList.remove('active'));b.classList.add('active');};bz.appendChild(b);});
+  c.onmousedown=e=>{esDrw=true;esCtx.beginPath();const r=c.getBoundingClientRect();esCtx.moveTo(e.clientX-r.left,e.clientY-r.top);};
+  c.onmousemove=e=>{
+    if(!esDrw)return;const r=c.getBoundingClientRect();const x=e.clientX-r.left,y=e.clientY-r.top;
+    esCtx.globalAlpha=esOpa;
+    if(esToolVal==='eraser'){esCtx.globalCompositeOperation='destination-out';esCtx.lineWidth=esSize*2;esCtx.strokeStyle='rgba(0,0,0,1)';}
+    else{esCtx.globalCompositeOperation='source-over';
+      if(esToolVal==='pencil'){esCtx.lineWidth=esSize*0.6;esCtx.strokeStyle=esColor;esCtx.setLineDash([]);}
+      else if(esToolVal==='brush'){esCtx.lineWidth=esSize;esCtx.strokeStyle=esColor;esCtx.setLineDash([]);}
+      else if(esToolVal==='marker'){esCtx.lineWidth=esSize*1.5;esCtx.strokeStyle=esColor;esCtx.setLineDash([]);}
+      else if(esToolVal==='spray'){for(let i=0;i<20;i++){const rx=(Math.random()-0.5)*esSize*2,ry=(Math.random()-0.5)*esSize*2;esCtx.fillStyle=esColor;esCtx.fillRect(x+rx,y+ry,1.5,1.5);}return;}
+      else if(esToolVal==='watercolor'){esCtx.lineWidth=esSize*1.8;esCtx.globalAlpha=esOpa*0.3;esCtx.strokeStyle=esColor;}
+    }
+    esCtx.lineTo(x,y);esCtx.stroke();esCtx.beginPath();esCtx.moveTo(x,y);
+  };
+  c.onmouseup=()=>{if(esDrw){esDrw=false;esCtx.globalAlpha=1;esCtx.globalCompositeOperation='source-over';esCtx.setLineDash([]);esHist.push(esCtx.getImageData(0,0,c.width,c.height));}};
+})();
+
+function esTool(t,btn){esToolVal=t;document.querySelectorAll('.esus-tool').forEach(x=>x.classList.remove('active'));btn.classList.add('active');}
+function esSetColor(c){esColor=c;document.querySelectorAll('.sw-dot').forEach(s=>s.classList.remove('active'));document.getElementById('es-col').value=c;}
+function esFill(){if(!esCtx)return;const c=document.getElementById('esus-canvas');esCtx.fillStyle=esColor;esCtx.fillRect(0,0,c.width,c.height);esHist.push(esCtx.getImageData(0,0,c.width,c.height));}
+function esUndo(){if(esHist.length<=1)return;esHist.pop();esCtx.putImageData(esHist[esHist.length-1],0,0);}
+function esClear(){if(!esCtx)return;const c=document.getElementById('esus-canvas');esCtx.fillStyle='#ffffff';esCtx.fillRect(0,0,c.width,c.height);esHist=[esCtx.getImageData(0,0,c.width,c.height)];}
+function esExport(){const c=document.getElementById('esus-canvas');const a=document.createElement('a');a.download='esus-painting.png';a.href=c.toDataURL('image/png');a.click();}
+function esLoadImg(e){const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=ev=>{const i=new Image();i.onload=()=>{const c=document.getElementById('esus-canvas');esCtx.drawImage(i,0,0,c.width,c.height);esHist.push(esCtx.getImageData(0,0,c.width,c.height));};i.src=ev.target.result;};r.readAsDataURL(f);}
+function esLoadUrl(url){const i=new Image();i.crossOrigin='anonymous';i.onload=()=>{const c=document.getElementById('esus-canvas');esCtx.drawImage(i,0,0,c.width,c.height);esHist.push(esCtx.getImageData(0,0,c.width,c.height));};i.onerror=()=>{const i2=new Image();i2.onload=()=>{const c=document.getElementById('esus-canvas');esCtx.drawImage(i2,0,0,c.width,c.height);};i2.src=url;};i.src=url;}
+function esAIDraw(){
+  const p=document.getElementById('es-ai').value.trim();if(!p){alert('Describe what to draw!');return;}
+  const c=document.getElementById('esus-canvas');const url=buildUrl(p+' illustration art white background',c.width,c.height,'flux',Math.floor(Math.random()*99999));
+  loadImg(url,src=>{const i=new Image();i.onload=()=>{esCtx.drawImage(i,0,0,c.width,c.height);esHist.push(esCtx.getImageData(0,0,c.width,c.height));};i.src=src;},()=>alert('AI draw failed. Try again.'));
+}
+
+// ============ VOICE OVER STUDIO ============
+let vStyleCur='narrator',vWaveIv=null,mRec=null,rChunks=[],rBlob=null;
+const vPresets={narrator:{rate:0.85,pitch:0.78},villain:{rate:0.9,pitch:0.65},hero:{rate:1.05,pitch:1.1},news:{rate:1.1,pitch:1.0},whisper:{rate:0.78,pitch:1.2},excited:{rate:1.3,pitch:1.3},elder:{rate:0.75,pitch:0.82},custom:{rate:1,pitch:1}};
+
+(function(){const w=document.getElementById('vwave');if(!w)return;for(let i=0;i<22;i++){const b=document.createElement('div');b.className='wbar';b.style.height=[8,16,24,12,30,20,14,28,10,22,36,18,26,12,30,8,20,34,16,24,10,18][i]+'px';w.appendChild(b);}})();
+
+function loadVoices(){const s=document.getElementById('v-select');if(!s)return;const vs=synth.getVoices();s.innerHTML='';vs.forEach((v,i)=>{const o=document.createElement('option');o.value=i;o.textContent=v.name+(v.localService?' (local)':'');s.appendChild(o);});}
+if(speechSynthesis.onvoiceschanged!==undefined)speechSynthesis.onvoiceschanged=loadVoices;
+setTimeout(loadVoices,400);setTimeout(loadVoices,1200);
+
+function vStyle(el,s){document.querySelectorAll('.vp').forEach(v=>v.classList.remove('on'));el.classList.add('on');vStyleCur=s;document.getElementById('v-custom-panel').style.display=s==='custom'?'block':'none';}
+
+function vSpeak(){
+  const text=document.getElementById('v-text').value.trim();if(!text){alert('Enter text first!');return;}
+  if(synth.speaking)synth.cancel();
+  const utt=new SpeechSynthesisUtterance(text);
+  const p=vPresets[vStyleCur]||vPresets.narrator;
+  const voices=synth.getVoices();
+  if(vStyleCur==='custom'){
+    const idx=parseInt(document.getElementById('v-select').value)||0;
+    if(voices[idx])utt.voice=voices[idx];
+    utt.rate=parseFloat(document.getElementById('v-rate').value);
+    utt.pitch=parseFloat(document.getElementById('v-pitch').value);
+    utt.volume=parseFloat(document.getElementById('v-vol').value);
+  } else {
+    const deep=voices.find(v=>v.name.includes('Google UK English Male')||v.name.includes('Daniel')||v.name.includes('Alex')||v.name.includes('Microsoft David'));
+    const clear=voices.find(v=>v.name.includes('Samantha')||v.name.includes('Google US English')||v.name.includes('Karen'));
+    if(vStyleCur==='narrator'||vStyleCur==='villain'||vStyleCur==='elder'){if(deep)utt.voice=deep;}
+    else if(clear||deep){utt.voice=clear||deep;}
+    utt.rate=p.rate;utt.pitch=p.pitch;utt.volume=1;
+  }
+  utt.onstart=()=>{document.getElementById('v-status').textContent='Speaking as '+vStyleCur+'...';vWaveIv=setInterval(()=>{document.querySelectorAll('#vwave .wbar').forEach(b=>{b.className='wbar on';b.style.height=(Math.random()*38+6)+'px';});},80);};
+  utt.onend=()=>{document.getElementById('v-status').textContent='Done ✦';clearInterval(vWaveIv);document.querySelectorAll('#vwave .wbar').forEach((b,i)=>{b.className='wbar';b.style.height=[8,16,24,12,30,20,14,28,10,22,36,18,26,12,30,8,20,34,16,24,10,18][i]+'px';});};
+  synth.speak(utt);
+}
+function vStop(){synth.cancel();clearInterval(vWaveIv);document.getElementById('v-status').textContent='Stopped';}
+function vPause(){if(synth.speaking&&!synth.paused){synth.pause();document.getElementById('v-status').textContent='Paused';}else if(synth.paused){synth.resume();document.getElementById('v-status').textContent='Resumed';}}
+
+function toggleRec(){
+  if(!mRec||mRec.state==='inactive'){
+    navigator.mediaDevices.getUserMedia({audio:true}).then(stream=>{
+      mRec=new MediaRecorder(stream);rChunks=[];
+      mRec.ondataavailable=e=>{if(e.data.size>0)rChunks.push(e.data);};
+      mRec.onstop=()=>{rBlob=new Blob(rChunks,{type:'audio/webm'});document.getElementById('play-rec-btn').disabled=false;document.getElementById('dl-rec-btn').disabled=false;document.getElementById('rec-status').textContent='Recording saved ✦';};
+      mRec.start();document.getElementById('rec-btn').classList.add('recording');document.getElementById('rec-lbl').textContent='Stop Recording';document.getElementById('rec-status').textContent='Recording...';
+    }).catch(()=>alert('Microphone access denied. Please allow microphone in your browser settings.'));
+  } else if(mRec.state==='recording'){mRec.stop();document.getElementById('rec-btn').classList.remove('recording');document.getElementById('rec-lbl').textContent='Start Recording';}
+}
+function playRec(){if(!rBlob)return;new Audio(URL.createObjectURL(rBlob)).play();}
+function dlRec(){if(!rBlob)return;const a=document.createElement('a');a.href=URL.createObjectURL(rBlob);a.download='voice-over.webm';a.click();}
+
+// ============ MUSIC STUDIO ============
+const tracks=[
+  {name:'Neon Descent',genre:'cinematic',dur:'3:24',bpm:72,mood:'Dark'},
+  {name:'Ember Fields',genre:'cinematic',dur:'4:11',bpm:60,mood:'Emotional'},
+  {name:'Orbital Drift',genre:'ambient',dur:'5:02',bpm:85,mood:'Ethereal'},
+  {name:'Glass Static',genre:'ambient',dur:'3:48',bpm:90,mood:'Tense'},
+  {name:'Iron March',genre:'action',dur:'2:55',bpm:130,mood:'Intense'},
+  {name:'Storm Protocol',genre:'action',dur:'3:30',bpm:140,mood:'Epic'},
+  {name:'Hollow Crown',genre:'drama',dur:'4:22',bpm:65,mood:'Melancholic'},
+  {name:'The Last Signal',genre:'drama',dur:'3:58',bpm:58,mood:'Haunting'},
+  {name:'Obsidian Pulse',genre:'horror',dur:'4:44',bpm:55,mood:'Disturbing'},
+  {name:'Static Void',genre:'horror',dur:'3:15',bpm:48,mood:'Eerie'},
+  {name:'Pixel Rain',genre:'electronic',dur:'3:50',bpm:120,mood:'Energetic'},
+  {name:'Neon Protocol',genre:'electronic',dur:'4:05',bpm:128,mood:'Driving'},
+  {name:'Ascension',genre:'orchestral',dur:'5:30',bpm:70,mood:'Triumphant'},
+  {name:'Requiem for Steel',genre:'orchestral',dur:'4:58',bpm:55,mood:'Mournful'},
+];
+let mFilterCur='all',mPlaying=null;
+
+function mFlt(el,f){document.querySelectorAll('.mf').forEach(m=>m.classList.remove('on'));el.classList.add('on');mFilterCur=f;buildTracks();}
+
+function buildTracks(){
+  const list=document.getElementById('track-list');if(!list)return;
+  const filtered=mFilterCur==='all'?tracks:tracks.filter(t=>t.genre===mFltCur);
+  list.innerHTML='';
+  filtered.forEach((t,i)=>{
+    const el=document.createElement('div');el.className='track';
+    const bars=Array.from({length:20},()=>'<div class="tw" style="height:'+Math.floor(Math.random()*18+4)+'px"></div>').join('');
+    el.setAttribute('data-name', t.name);
+    el.setAttribute('data-idx', i);
+    el.innerHTML='<div class="track-play" id="tp-'+i+'" onclick="mPlay('+i+',this)">&#9654;</div><div class="track-info"><div class="track-name">'+t.name+'</div><div class="track-meta">'+t.bpm+' BPM &middot; '+t.mood+'</div></div><div class="track-wave">'+bars+'</div><div class="track-dur">'+t.dur+'</div><button class="track-add" onclick="mAddByEl(this)">+ Add to Timeline</button>';
+    list.appendChild(el);
+  });
+}
+
+function mPlay(i,btn){
+  if(mPlaying!==null){document.querySelectorAll('.track-play').forEach(b=>{b.innerHTML='&#9654;';b.classList.remove('playing');});}
+  if(mPlaying===i){mPlaying=null;return;}
+  mPlaying=i;btn.innerHTML='&#9646;&#9646;';btn.classList.add('playing');
+}
+function mAddByEl(btn){var name=btn.closest('[data-name]').getAttribute('data-name');mAdd(name);}
+function mAdd(name){alert('Added "'+name+'" to Film Editor timeline!');edClip('music');}
+
+// ============ FILM EDITOR ============
+let edPlaying=false,edP=0,edIv=null;
+function edPlay(){edPlaying=!edPlaying;const btn=document.getElementById('ed-pb');if(edPlaying){btn.innerHTML='&#9646;&#9646;';document.getElementById('ed-screen').textContent='Playing...';edIv=setInterval(()=>{edP=Math.min(edP+0.3,100);document.getElementById('ed-prog').style.width=edP+'%';const t=Math.floor(edP/100*120);document.getElementById('ed-time').textContent=fmt(t)+' / 2:00';if(edP>=100){clearInterval(edIv);edPlaying=false;btn.innerHTML='&#9654;';edP=0;}},80);}else{clearInterval(edIv);btn.innerHTML='&#9654;';}}
+function edRew(){edP=0;document.getElementById('ed-prog').style.width='0%';document.getElementById('ed-time').textContent='0:00 / 2:00';}
+function edFwd(){edP=Math.min(edP+10,100);document.getElementById('ed-prog').style.width=edP+'%';}
+function edSeek(e){const r=document.getElementById('ed-tl').getBoundingClientRect();edP=Math.max(0,Math.min(100,(e.clientX-r.left)/r.width*100));document.getElementById('ed-prog').style.width=edP+'%';}
+function fmt(s){return Math.floor(s/60)+':'+(s%60<10?'0':'')+s%60;}
+const clrC={video:'rgba(224,64,251,',voice:'rgba(64,196,255,',cgi:'rgba(255,196,77,',music:'rgba(76,175,130,'};
+const clrN={video:['Exodus Clip','Scene Cut','Visual'],voice:['Voice Over','Narration','Dialogue'],cgi:['Chronicles World','CGI Layer','Matte'],music:['Score','Track','Ambient']};
+function edClip(type){const track=document.getElementById('tl-'+type);const ex=track.querySelectorAll('div');const w=Math.floor(Math.random()*22+10);let l=2;if(ex.length){const last=ex[ex.length-1];l=parseFloat(last.style.left)+parseFloat(last.style.width)+1;}if(l+w>98)l=2;const clip=document.createElement('div');const c=clrC[type];clip.style.cssText='position:absolute;height:100%;left:'+l+'%;width:'+w+'%;background:'+c+'0.2);border:0.5px solid '+c+'0.45);color:'+c+'0.8);border-radius:3px;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:500;padding:0 4px;white-space:nowrap;overflow:hidden;';clip.textContent=clrN[type][Math.floor(Math.random()*clrN[type].length)];track.appendChild(clip);document.getElementById('ed-screen').textContent='Added '+type+' clip ✦';}
+
+// ============ ACCOUNTS ============
+function getUsers(){return JSON.parse(localStorage.getItem('aureate-users')||'{}');}
+function saveUsers(u){localStorage.setItem('aureate-users',JSON.stringify(u));}
+function getCurUser(){return JSON.parse(localStorage.getItem('aureate-cur')||'null');}
+function setCurUser(u){localStorage.setItem('aureate-cur',JSON.stringify(u));}
+
+function doSignup(){
+  const name=document.getElementById('su-name').value.trim();
+  const email=document.getElementById('su-email').value.trim();
+  const pass=document.getElementById('su-pass').value;
+  const err=document.getElementById('su-err');err.classList.remove('show');
+  if(!name||!email||!pass){err.textContent='All fields required.';err.classList.add('show');return;}
+  if(pass.length<6){err.textContent='Password must be at least 6 characters.';err.classList.add('show');return;}
+  const users=getUsers();
+  if(users[email]){err.textContent='Account already exists with this email.';err.classList.add('show');return;}
+  users[email]={name,email,pass,plan:'Free',joined:new Date().toLocaleDateString()};
+  saveUsers(users);setCurUser({name,email,plan:'Free'});
+  updateNavUser();go('dashboard');
+}
+
+function doLogin(){
+  const email=document.getElementById('li-email').value.trim();
+  const pass=document.getElementById('li-pass').value;
+  const err=document.getElementById('login-err');err.classList.remove('show');
+  if(!email||!pass){err.textContent='Email and password required.';err.classList.add('show');return;}
+  const users=getUsers();
+  if(!users[email]||users[email].pass!==pass){err.textContent='Incorrect email or password.';err.classList.add('show');return;}
+  setCurUser({name:users[email].name,email,plan:users[email].plan});
+  updateNavUser();go('account');
+}
+
+function doLogout(){localStorage.removeItem('aureate-cur');updateNavUser();go('home');}
+
+function updateNavUser(){
+  const u=getCurUser();
+  const nr=document.getElementById('nav-right'),nu=document.getElementById('nav-user');
+  const li=document.getElementById('dd-login-item'),si=document.getElementById('dd-signup-item'),lo=document.getElementById('dd-logout-item');
+  if(u){
+    nr.style.display='none';nu.style.display='flex';
+    document.getElementById('nav-avatar').textContent=u.name.charAt(0).toUpperCase();
+    document.getElementById('nav-uname').textContent=u.name.split(' ')[0];
+    if(li)li.style.display='none';if(si)si.style.display='none';if(lo)lo.style.display='flex';
+  } else {
+    nr.style.display='flex';nu.style.display='none';
+    if(li)li.style.display='flex';if(si)si.style.display='flex';if(lo)lo.style.display='none';
+  }
+}
+
+function renderAccount(){
+  var u=getCurUser();var cont=document.getElementById('acct-content');
+  if(!u){cont.innerHTML='<div class="auth-wrap"><div class="auth-card"><span class="auth-logo">Aureate</span><p class="auth-sub">Sign in to access your account</p><button class="auth-btn" onclick="go(\'login\')">Sign In</button><div style="margin-top:12px;text-align:center"><span style="font-size:13px;color:rgba(255,255,255,0.3);cursor:pointer" onclick="go(\'signup\')">Create an account</span></div></div></div>';return;}
+  var saved=JSON.parse(localStorage.getItem('aureate-vault')||'[]');
+  var av=u.name.charAt(0).toUpperCase();
+  cont.innerHTML='<div class="profile-card"><div class="profile-av">'+av+'</div><div class="profile-name">'+u.name+'</div><div class="profile-email">'+u.email+'</div><div style="display:inline-block;margin-top:10px;font-size:12px;background:rgba(224,64,251,0.1);color:#e040fb;border:0.5px solid rgba(224,64,251,0.25);border-radius:6px;padding:3px 12px">'+u.plan+' Plan</div><div class="profile-stats"><div class="pstat"><div class="pstat-num">'+sImg+'</div><div class="pstat-lbl">Images</div></div><div class="pstat"><div class="pstat-num">'+sWorld+'</div><div class="pstat-lbl">Worlds</div></div><div class="pstat"><div class="pstat-num">'+saved.length+'</div><div class="pstat-lbl">Saved</div></div></div></div><div style="margin-top:20px;display:flex;gap:10px;flex-wrap:wrap"><button class="run" onclick="go(\'subscriptions\')">Upgrade Plan</button><button class="run" style="background:rgba(255,80,80,0.08);color:rgba(255,120,120,0.7);border-color:rgba(255,80,80,0.2)" onclick="doLogout()">Sign Out</button></div>';
+}
+
+updateNavUser();
+
+// ============ VAULT ============
+function vtAdd(type,title,body){
+  const v=JSON.parse(localStorage.getItem('aureate-vault')||'[]');
+  v.push({type,title,body,ts:Date.now()});
+  localStorage.setItem('aureate-vault',JSON.stringify(v));
+  document.getElementById('dash-prompts').textContent=v.length;
+}
+function vtSave(){
+  const t=document.getElementById('vt-title').value.trim(),b=document.getElementById('vt-body').value.trim(),type=document.getElementById('vt-type').value;
+  if(!t||!b){alert('Enter a name and prompt!');return;}
+  vtAdd(type,t,b);vtLoad();document.getElementById('vt-title').value='';document.getElementById('vt-body').value='';
+}
+function vtLoad(){
+  const items=JSON.parse(localStorage.getItem('aureate-vault')||'[]');
+  const list=document.getElementById('vault-list');if(!list)return;
+  list.innerHTML='';document.getElementById('dash-prompts').textContent=items.length;
+  if(!items.length){list.innerHTML='<div style="font-size:13px;color:rgba(255,255,255,0.22);padding:20px;text-align:center">No saved prompts yet — generate something and save it above!</div>';return;}
+  const tc={Image:'rgba(224,64,251,0.1);color:#e040fb;border:0.5px solid rgba(224,64,251,0.2)',World:'rgba(64,196,255,0.09);color:#40c4ff;border:0.5px solid rgba(64,196,255,0.18)',Voice:'rgba(76,175,130,0.09);color:#4caf82;border:0.5px solid rgba(76,175,130,0.18)',Scene:'rgba(124,77,255,0.1);color:#b39ddb;border:0.5px solid rgba(124,77,255,0.2)'};
+  [...items].reverse().forEach(item=>{
+    const row=document.createElement('div');row.className='vr';
+    const sb=item.body.replace(/'/g,"&#39;");
+    row.setAttribute('data-body', item.body);
+    row.setAttribute('data-type', item.type);
+    row.innerHTML='<span class="vtag" style="background:'+tc[item.type]+'">'+item.type+'</span><div style="flex:1"><div class="vt">'+item.title+'</div><div class="vb">'+item.body+'</div></div><button class="run cy" onclick="vtUseEl(this)" style="flex-shrink:0;padding:7px 14px;font-size:12px">Use &rarr;</button>';
+    list.appendChild(row);
+  });
+}
+function vtUseEl(btn){var row=btn.closest('[data-body]');vtUse(row.getAttribute('data-body'),row.getAttribute('data-type'));}
+function vtUse(body,type){if(type==='Voice'){document.getElementById('v-text').value=body;go('voice');}else if(type==='World'){document.getElementById('ch-input').value=body;go('chronicles');}else{document.getElementById('ex-prompt').value=body;go('exodus');}}
+
+if(!localStorage.getItem('aureate-vault')){
+  localStorage.setItem('aureate-vault',JSON.stringify([
+    {type:'Image',title:'Cyberpunk rain alley',body:'rain soaked alleyway at night neon signs reflecting in puddles lone figure cinematic 35mm lens',ts:Date.now()},
+    {type:'World',title:'Orbital station',body:'brutalist space station in orbit around Earth stars dramatic lighting ultra wide cinematic',ts:Date.now()},
+    {type:'Voice',title:'Trailer opener',body:'In a world where the last city stands between humanity and oblivion one filmmaker dared to dream.',ts:Date.now()},
+  ]));
+}
+vtLoad();
+
+// ============ LIVE FEED ============
+let feedIdx=0,feedOn=false;
+const fEvts=[
+  {icon:'&#128444;',bg:'rgba(224,64,251,0.12)',txt:'<strong>@vox_render</strong> generated with Exodus Beta 1 — cyberpunk Tokyo alley'},
+  {icon:'&#127756;',bg:'rgba(64,196,255,0.1)',txt:'<strong>@spaceframe</strong> built world in Chronicles — Orbital Station Omega'},
+  {icon:'&#127912;',bg:'rgba(255,196,77,0.1)',txt:'<strong>@cinema_craft</strong> edited in Ezequiel — cinema filter applied'},
+  {icon:'&#9999;',bg:'rgba(124,77,255,0.1)',txt:'<strong>@sora_nm</strong> drew concept art in Esus Beta 1'},
+  {icon:'&#127897;',bg:'rgba(76,175,130,0.1)',txt:'<strong>@lyra_chen</strong> recorded voice over — epic narrator style'},
+  {icon:'&#127925;',bg:'rgba(76,175,130,0.1)',txt:'<strong>@marcus_vey</strong> added Neon Descent to Film Editor timeline'},
+  {icon:'&#128256;',bg:'rgba(224,64,251,0.1)',txt:'<strong>@deep_frames</strong> remixed Neon District 2089 in Exodus'},
+  {icon:'&#129680;',bg:'rgba(124,77,255,0.1)',txt:'<strong>@orion_black</strong> explored Chronicles — Aethermoor Fantasy Realm'},
+];
+function addFeedItem(){const feed=document.getElementById('live-feed');if(!feed)return;const e=fEvts[feedIdx%fEvts.length];feedIdx++;const item=document.createElement('div');item.className='fi';item.innerHTML='<div class="fi-icon" style="background:'+e.bg+'">'+e.icon+'</div><div class="fi-txt">'+e.txt+'</div><div class="fi-time">just now</div>';feed.prepend(item);if(feed.children.length>10)feed.removeChild(feed.lastChild);}
+function startFeed(){if(feedOn)return;feedOn=true;for(let i=0;i<6;i++)addFeedItem();setInterval(()=>{if(document.getElementById('livefeed').classList.contains('active'))addFeedItem();},3500);}
+
+// ============ COMMUNITY ============
+function communityUpload(){const u=getCurUser();if(!u){alert('Sign in to share your creations!');go('login');return;}alert('Upload feature coming very soon! Share your creations on Instagram @aureatedesignstudios in the meantime ✦');}
+function tc(el){el.classList.toggle('on');}
+
+// ============ REMIX ============
+function runRemix(){
+  const src=document.getElementById('rmx-src').value.trim(),dir=document.getElementById('rmx-dir').value.trim();
+  if(!src){alert('Enter a source prompt!');return;}
+  const combined=src+(dir?' transformed into '+dir:'');
+  const result=document.getElementById('rmx-result');
+  result.innerHTML='<div class="panel" style="text-align:center;padding:40px;color:rgba(255,255,255,0.3)">Remixing with Exodus Beta 1...</div>';
+  const seed=Math.floor(Math.random()*99999);
+  loadImg(buildUrl(combined+' cinematic highly detailed',1024,1024,'flux',seed),src=>{
+    lastRemixSrc = src;
+    result.innerHTML='<div class="panel"><div class="panel-title">Remix Result</div><img src="'+src+'" style="width:100%;border-radius:12px;margin-bottom:12px;display:block"/><div style="display:flex;gap:8px"><button class="run" onclick="window.open(lastRemixSrc,\'_blank\')">View Full</button><button class="run cy" onclick="ezFromRemix()">Edit in Ezequiel</button></div></div>';
+    sImg++;
+  },()=>{result.innerHTML='<div class="note"><strong>Remix failed.</strong> Try simplifying the source prompt.</div>';});
+}
+</script>
+</body>
+</html>
